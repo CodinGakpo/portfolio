@@ -3,11 +3,13 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { navLinks, heroData } from '../../data/data';
+import { useTerminalStore } from '../../stores/terminalStore';
 
 const Navbar = () => {
   const navRef = useRef<HTMLElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { toggle: toggleTerminal } = useTerminalStore();
 
   useEffect(() => {
     gsap.fromTo(
@@ -53,6 +55,17 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
+
+          {/* Terminal trigger — cheeky shell syntax */}
+          <button
+            onClick={toggleTerminal}
+            className="navbar-terminal-btn"
+            aria-label="Open terminal"
+            title="Open interactive terminal (Ctrl+`)"
+          >
+            <span className="navbar-terminal-btn__icon">&gt;_</span>
+            <span>./explore</span>
+          </button>
         </div>
 
         {/* Mobile hamburger */}
@@ -93,6 +106,15 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
+          {/* Mobile terminal trigger */}
+          <button
+            onClick={() => { setIsOpen(false); toggleTerminal(); }}
+            className="navbar-terminal-btn text-left"
+            aria-label="Open terminal"
+          >
+            <span className="navbar-terminal-btn__icon">&gt;_</span>
+            <span>./explore</span>
+          </button>
         </div>
       )}
     </nav>

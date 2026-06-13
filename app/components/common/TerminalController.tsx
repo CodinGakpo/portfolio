@@ -1,15 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import { useTerminalStore } from '../../stores/terminalStore';
 
 const Terminal = dynamic(() => import('../terminal'), { ssr: false });
 
 const TerminalController = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggle = () => setIsOpen(prev => !prev);
-  const close  = () => setIsOpen(false);
+  const { isOpen, toggle, close } = useTerminalStore();
 
   // Global shortcut: Ctrl+` (Backquote)
   // Uses e.code (physical key) not e.key — reliable on Linux + Windows
@@ -30,14 +28,13 @@ const TerminalController = () => {
         close();
       }
     };
-    // document instead of window — catches events even when
-    // focus is inside an iframe or deep shadow DOM
     document.addEventListener('keydown', handler, { capture: true });
     return () => document.removeEventListener('keydown', handler, { capture: true });
-  }, [isOpen]);
+  }, [isOpen, toggle, close]);
 
   return (
     <>
+      {/* FAB — bottom-right corner */}
       <button
         onClick={toggle}
         className="terminal-fab"
