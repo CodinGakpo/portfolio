@@ -121,3 +121,192 @@ section {
   pointer-events: none;
   z-index: 0;
 }
+
+/* ─── Marquee ────────────────────────────────────────────────────────────── */
+
+.marquee-container {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+}
+
+.marquee-track {
+  display: flex;
+  gap: 0.75rem;
+  width: max-content;
+  animation: marquee-scroll 40s linear infinite;
+}
+
+.marquee-track--reverse {
+  animation-direction: reverse;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-item {
+  flex-shrink: 0;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.025);
+  color: rgba(255, 255, 255, 0.55);
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.marquee-item:hover {
+  border-color: rgba(139, 92, 246, 0.35);
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(139, 92, 246, 0.1);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.1);
+}
+
+/* ─── Expertise Cards ────────────────────────────────────────────────────── */
+
+.expertise-card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  cursor: default;
+}
+
+.expertise-card__accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 16px 16px 0 0;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.expertise-card__spotlight {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    var(--card-glow, rgba(255, 255, 255, 0.06)),
+    transparent 40%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.expertise-card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 60px var(--card-glow, rgba(255, 255, 255, 0.03));
+}
+
+.expertise-card:hover .expertise-card__accent {
+  opacity: 1;
+}
+
+.expertise-card:hover .expertise-card__spotlight {
+  opacity: 1;
+}
+
+.expertise-card__techs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.15rem;
+  line-height: 1.8;
+}
+
+.expertise-card__tech-item {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.55);
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.expertise-card:hover .expertise-card__tech-item {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.expertise-card__dot {
+  margin: 0 0.35rem;
+  font-weight: 700;
+  font-size: 1rem;
+  opacity: 0.6;
+}
+
+/* ─── Certification Badge ────────────────────────────────────────────────── */
+
+.cert-badge {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.06),
+    rgba(245, 158, 11, 0.02)
+  );
+  border: 1px solid rgba(245, 158, 11, 0.15);
+  border-radius: 14px;
+  transition: all 0.3s ease;
+}
+
+.cert-badge:hover {
+  border-color: rgba(245, 158, 11, 0.3);
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.08);
+  transform: translateY(-1px);
+}
+
+.cert-badge__icon {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245, 158, 11, 0.1);
+  border-radius: 10px;
+}
+
+.cert-badge__verified {
+  flex-shrink: 0;
+  padding: 0.35rem 0.75rem;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  border-radius: 8px;
+}

@@ -3,9 +3,9 @@
 
 export const siteConfig = {
   name: 'Adidev Anand',
-  title: 'Adidev Anand - Backend Engineer & CS Student',
+  title: 'Adidev Anand — Full Stack Developer & AWS Cloud Engineer',
   description:
-    'Final-year Information Security student at VIT Vellore. Backend systems, cloud infrastructure, and AI-integrated applications. 2x hackathon winner. AWS certified.',
+    'Final-year Information Security student at VIT Vellore. Full-stack systems, AWS cloud architecture, and production-grade applications. 2x hackathon winner. AWS SAA-C03 certified.',
   url: 'https://adidev.dev',
   ogImage: '/opengraph-image.png',
   twitterHandle: '@adidev',
@@ -16,12 +16,12 @@ export const siteConfig = {
 export const heroData = {
   name: 'Adidev Anand',
   taglines: [
-    'Backend Engineer. Cloud Architect. Security Thinker.',
-    'Built production AWS stacks with CI/CD and IAM best practices.',
+    'Full Stack Developer. AWS Cloud Architect.',
+    'Building production systems with CI/CD, scalable architecture, and security-first design.',
     'B.Tech Information Security · VIT Vellore · 9.13 CGPA',
   ],
   subTagline:
-    'Final-year CS student building production-ready backend systems across AWS, AI workflows, and security-first architecture.',
+    'Final-year CS student shipping production-ready full-stack systems across AWS, modern frameworks, and security-first architecture.',
   cta: {
     primary: { label: 'View Projects', href: '#projects' },
     secondary: { label: 'View Resume', href: '#resume' },
@@ -31,108 +31,84 @@ export const heroData = {
 // ─── About ───────────────────────────────────────────────────────────────────
 
 export const aboutData = {
-  bio: "I am a final-year Information Security student at VIT Vellore (9.13 CGPA) focused on backend and cloud engineering. I have shipped full-stack systems with real users, built asynchronous AI pipelines, and worked on production deployments with CI/CD and secure IAM practices.",
+  bio: "I am a final-year Information Security student at VIT Vellore (9.13 CGPA) specializing in full-stack development and AWS cloud architecture. I have shipped production systems with real users, built scalable APIs with async processing pipelines, and deployed secure cloud infrastructure with CI/CD automation.",
   stats: [
     { value: '9.13', label: 'CGPA' },
     { value: '2x', label: 'Hackathon Winner' },
-    { value: '1', label: 'Patent Filed' },
+    { value: 'SAA-C03', label: 'AWS Certified' },
   ],
-  quote: 'Reliable systems. Measurable impact. Fast learning.',
+  quote: 'Build to ship. Ship to scale.',
 };
 
 // ─── Skills ──────────────────────────────────────────────────────────────────
 
-export interface Skill {
-  name: string;
-  icon?: string;
-}
+export const techMarqueeItems: string[] = [
+  'Python', 'JavaScript', 'TypeScript', 'SQL', 'Bash',
+  'Django', 'FastAPI', 'Node.js', 'Express', 'REST APIs',
+  'React.js', 'Next.js', 'Vite', 'Tailwind CSS', 'HTML5 / CSS3',
+  'AWS EC2', 'AWS S3', 'AWS RDS', 'CloudFront', 'Route53',
+  'Docker', 'GitHub Actions', 'Nginx', 'Linux',
+  'PostgreSQL', 'MySQL', 'MongoDB', 'Redis',
+  'Celery', 'JWT / OAuth2', 'LangChain', 'OpenAI API',
+  'TensorFlow', 'spaCy', 'Keras',
+];
 
-export interface SkillCategory {
+export interface ExpertiseDomain {
   title: string;
-  icon: string;
-  skills: Skill[];
+  subtitle: string;
+  description: string;
+  accentColor: string;
+  glowColor: string;
+  technologies: string[];
 }
 
-export const skillsData: SkillCategory[] = [
+export const expertiseDomains: ExpertiseDomain[] = [
   {
-    title: 'Languages',
-    icon: '</>',
-    skills: [
-      { name: 'Python' },
-      { name: 'JavaScript' },
-      { name: 'SQL' },
-      { name: 'Bash' },
-      { name: 'Solidity' },
-    ],
-  },
-  {
-    title: 'Backend',
-    icon: '⚙',
-    skills: [
-      { name: 'Django' },
-      { name: 'FastAPI' },
-      { name: 'Node.js / Express' },
-      { name: 'REST APIs' },
-      { name: 'Celery + Redis' },
-      { name: 'JWT / OAuth2' },
-    ],
-  },
-  {
-    title: 'Frontend',
-    icon: '◧',
-    skills: [
-      { name: 'React.js' },
-      { name: 'Next.js' },
-      { name: 'Vite' },
-      { name: 'Tailwind CSS' },
-      { name: 'HTML5 / CSS3' },
+    title: 'Backend Engineering',
+    subtitle: 'Core Strength',
+    description:
+      'Designing and deploying production APIs with async processing, task queues, and secure authentication flows.',
+    accentColor: '#10b981',
+    glowColor: 'rgba(16, 185, 129, 0.15)',
+    technologies: [
+      'Python', 'Django', 'FastAPI', 'Node.js / Express',
+      'REST APIs', 'Celery + Redis', 'JWT / OAuth2',
+      'PostgreSQL', 'MySQL', 'MongoDB',
     ],
   },
   {
     title: 'Cloud & DevOps',
-    icon: '☁',
-    skills: [
-      { name: 'AWS EC2' },
-      { name: 'AWS S3' },
-      { name: 'AWS RDS' },
-      { name: 'CloudFront + Route53' },
-      { name: 'GitHub Actions CI/CD' },
-      { name: 'Docker' },
-      { name: 'Nginx + Gunicorn' },
-      { name: 'Linux (Fedora / Ubuntu)' },
+    subtitle: 'AWS SAA-C03 Certified',
+    description:
+      'Production AWS architecture with CI/CD pipelines, IAM best practices, and zero-downtime deployments.',
+    accentColor: '#f59e0b',
+    glowColor: 'rgba(245, 158, 11, 0.15)',
+    technologies: [
+      'AWS EC2', 'AWS S3', 'AWS RDS', 'CloudFront + Route53',
+      'Docker', 'GitHub Actions CI/CD', 'Nginx + Gunicorn',
+      'Linux (Fedora / Ubuntu)', 'IAM + OIDC Federation',
     ],
   },
   {
-    title: 'Databases',
-    icon: '⛁',
-    skills: [
-      { name: 'MySQL / AWS RDS' },
-      { name: 'PostgreSQL / NeonDB' },
-      { name: 'MongoDB' },
-      { name: 'Redis' },
+    title: 'Frontend & AI',
+    subtitle: 'Full Stack Reach',
+    description:
+      'Building responsive interfaces and integrating AI/ML pipelines for intelligent, user-facing features.',
+    accentColor: '#8b5cf6',
+    glowColor: 'rgba(139, 92, 246, 0.15)',
+    technologies: [
+      'React.js', 'Next.js', 'Vite', 'Tailwind CSS',
+      'LangChain', 'OpenAI API', 'Keras / TensorFlow', 'spaCy',
     ],
   },
+];
+
+export const certifications = [
   {
-    title: 'AI / ML',
-    icon: '⬡',
-    skills: [
-      { name: 'LangChain' },
-      { name: 'OpenAI API' },
-      { name: 'Keras / TensorFlow' },
-      { name: 'LSTM / CNN' },
-      { name: 'spaCy' },
-      { name: 'Isolation Forest' },
-    ],
-  },
-  {
-    title: 'Security',
-    icon: '⛨',
-    skills: [
-      { name: 'Cryptography (MD5, SHA-512, HMAC, TLS, IPSec)' },
-      { name: 'PKI / X.509 / Kerberos' },
-      { name: 'Firewalls / IDS' },
-      { name: 'Zero-shot agentic AI pipelines' },
-    ],
+    name: 'AWS Solutions Architect – Associate',
+    code: 'SAA-C03',
+    issuer: 'Amazon Web Services',
+    year: '2026',
   },
 ];
 
@@ -169,14 +145,8 @@ export const projectsData: Project[] = [
       'CNN model classifies issue departments and routes tasks via Celery/Redis with blockchain audit trail on Ethereum Sepolia',
     ],
     techStack: [
-      'Django',
-      'React + Vite',
-      'AWS',
-      'Celery/Redis',
-      'CNN (Keras)',
-      'Blockchain',
-      'Leaflet',
-      'GitHub Actions',
+      'Django', 'React + Vite', 'AWS', 'Celery/Redis',
+      'CNN (Keras)', 'Blockchain', 'Leaflet', 'GitHub Actions',
     ],
     standout:
       'Production deployment with secure IAM, HTTPS termination, and zero-downtime CI/CD.',
@@ -187,23 +157,16 @@ export const projectsData: Project[] = [
     subtitle: 'AI Enterprise Document Security Analyzer',
     oneLiner:
       'Agentic zero-shot AI pipeline that analyzes enterprise documents (PDF, Excel, PPT, images) for security compliance violations.',
-    statusBadge: 'Patent Filed',
-    statusTone: 'patent',
     githubUrl: 'https://github.com/CodinGakpo/DocuMiner',
     highlights: [
       'Automated PII detection, pseudonymization, and IAM policy extraction using LangChain + OpenAI API',
       'Added Tesseract OCR for image-based content extraction across multiple document formats through a unified REST API',
-      'Submitted for VIT patent disclosure (IPR-B format) as an undergraduate-led research contribution',
+      'Built a multi-stage agentic pipeline with zero-shot classification for document compliance analysis',
     ],
     techStack: [
-      'FastAPI',
-      'LangChain',
-      'OpenAI API',
-      'spaCy',
-      'Tesseract OCR',
-      'Python',
+      'FastAPI', 'LangChain', 'OpenAI API', 'spaCy', 'Tesseract OCR', 'Python',
     ],
-    standout: 'Patent-filed as an undergrad with a true multi-stage AI pipeline.',
+    standout: 'True multi-stage AI pipeline with zero-shot classification and multi-format document processing.',
   },
   {
     id: 'drdeepti',
@@ -236,6 +199,11 @@ export interface Achievement {
 export const achievementsData: Achievement[] = [
   {
     year: '2026',
+    title: 'AWS Solutions Architect Associate (SAA-C03) — Certified',
+    badgeColor: 'amber',
+  },
+  {
+    year: '2026',
     title: "DevSoc'26 — Tech for Good Track Winner (150+ participants, CodeChef)",
     badgeColor: 'gold',
   },
@@ -248,11 +216,6 @@ export const achievementsData: Achievement[] = [
     year: '2026',
     title: 'Rank 10 / 2000+ — Neo Codeathon, VIT Vellore',
     badgeColor: 'silver',
-  },
-  {
-    year: '2026',
-    title: 'Patent Disclosure Filed — DocuMiner (VIT IPR-B)',
-    badgeColor: 'blue',
   },
   {
     year: '2026',
@@ -281,7 +244,7 @@ export const resumeData = {
 export const contactData = {
   heading: "Let's build something.",
   subtext:
-    'Open to backend engineering internships and full-time software roles. Available for interviews and immediate projects.',
+    'Open to full-stack and cloud engineering roles. AWS certified, graduation-ready, and available for immediate start.',
   links: {
     email: 'anandadidev43@gmail.com',
     github: 'https://github.com/CodinGakpo',

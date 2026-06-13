@@ -34,11 +34,13 @@ const Hero = () => {
           </div>
           <div className="p-5 md:p-7 font-mono text-sm md:text-base leading-7 text-emerald-200/90">
             <p>$ role --current</p>
-            <p className="text-emerald-300">Backend Engineer | Cloud & DevOps | Information Security</p>
-            <p className="mt-4">$ highlight --focus</p>
-            <p>Building production systems with AWS, CI/CD, async processing, and security-first design.</p>
+            <p className="text-emerald-300">Full Stack Developer | AWS Cloud Architect</p>
+            <p className="mt-4">$ stack --primary</p>
+            <p>Django · FastAPI · React · Next.js · AWS · PostgreSQL · Docker</p>
+            <p className="mt-4">$ cert --verify SAA-C03</p>
+            <p className="text-amber-300/90">✓ AWS Solutions Architect – Associate (Verified)</p>
             <p className="mt-4">$ open --projects</p>
-            <a href="#projects" className="underline underline-offset-4 text-emerald-300 hover:text-emerald-200">View shipped work</a>
+            <a href="#projects" className="underline underline-offset-4 text-emerald-300 hover:text-emerald-200">View shipped work →</a>
           </div>
         </div>
 

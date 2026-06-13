@@ -13,18 +13,18 @@ const About = () => {
   const backendRef = useRef<HTMLDivElement>(null);
   const quoteRef = useRef<HTMLParagraphElement>(null);
 
-  const backendHighlights = [
+  const highlights = [
     {
-      title: 'Infra Snapshot',
-      lines: ['AWS: EC2 + RDS + S3 + CloudFront', 'Deploy: Nginx + Gunicorn + HTTPS', 'Runtime: Linux-first workflows'],
+      title: 'Cloud & Infra',
+      lines: ['AWS: EC2 + RDS + S3 + CloudFront', 'Deploy: Docker + Nginx + HTTPS', 'Certified: AWS SAA-C03'],
     },
     {
-      title: 'Pipeline Mode',
-      lines: ['CI/CD: GitHub Actions + OIDC IAM', 'Async Jobs: Celery + Redis queues', 'Observability: Logs, retries, rollbacks'],
+      title: 'Backend Systems',
+      lines: ['APIs: Django + FastAPI + Node.js', 'Async: Celery + Redis queues', 'CI/CD: GitHub Actions + OIDC IAM'],
     },
     {
-      title: 'Build Philosophy',
-      lines: ['Security-first defaults', 'Production over prototypes', 'Measure, profile, iterate'],
+      title: 'Full Stack',
+      lines: ['Frontend: React + Next.js + Vite', 'Data: PostgreSQL, MySQL, MongoDB', 'Production-first mindset'],
     },
   ];
 
@@ -101,9 +101,9 @@ const About = () => {
           {aboutData.bio}
         </p>
 
-        {/* Backend-focused filler content */}
+        {/* Highlights */}
         <div ref={backendRef} className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-14">
-          {backendHighlights.map((item) => (
+          {highlights.map((item) => (
             <div key={item.title} className="backend-card glass-card border border-emerald-500/30 p-5" style={{ opacity: 0 }}>
               <p className="text-xs font-mono mb-3 tracking-wide text-emerald-300">$ {item.title.toLowerCase().replace(/\s+/g, '-')}</p>
               <ul className="space-y-2">

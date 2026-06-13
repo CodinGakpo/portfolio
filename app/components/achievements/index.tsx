@@ -9,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const badgeColorMap: Record<string, string> = {
   gold: '#f59e0b',
+  amber: '#f59e0b',
   silver: '#94a3b8',
   blue: '#3b82f6',
   purple: '#8b5cf6',
