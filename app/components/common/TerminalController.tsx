@@ -44,7 +44,8 @@ const TerminalController = () => {
         aria-label="Toggle terminal"
         title="Open terminal (Ctrl+`)"
       >
-        <span className="terminal-fab-icon">_</span>
+        <span className="terminal-fab-icon">&gt;_</span>
+        <span className="terminal-fab-label">terminal</span>
       </button>
 
       <Terminal isOpen={isOpen} onClose={close} onToggle={toggle} />

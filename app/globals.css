@@ -493,37 +493,61 @@ section {
 }
 
 /* FAB trigger button */
+@keyframes fab-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.0), 0 4px 20px rgba(0,0,0,0.5); }
+  50%       { box-shadow: 0 0 0 6px rgba(52, 211, 153, 0.12), 0 4px 20px rgba(0,0,0,0.5); }
+}
+
 .terminal-fab {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
   z-index: 9000;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: rgba(13, 17, 23, 0.9);
-  border: 1px solid rgba(52, 211, 153, 0.25);
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: rgba(13, 17, 23, 0.95);
+  border: 1.5px solid rgba(52, 211, 153, 0.55);
   color: #34d399;
-  font-family: 'Fira Code', 'Courier New', monospace;
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-family: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   cursor: pointer;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 2px;
   transition: all 0.25s ease;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 0 16px rgba(52, 211, 153, 0.18),
+    0 4px 24px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(52, 211, 153, 0.1);
+  animation: fab-pulse 3s ease-in-out infinite;
 }
 
 .terminal-fab:hover {
-  border-color: rgba(52, 211, 153, 0.5);
+  border-color: rgba(52, 211, 153, 0.9);
   background: rgba(13, 17, 23, 1);
-  box-shadow: 0 0 24px rgba(52, 211, 153, 0.15), 0 4px 20px rgba(0, 0, 0, 0.4);
-  transform: translateY(-2px);
+  box-shadow:
+    0 0 28px rgba(52, 211, 153, 0.35),
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(52, 211, 153, 0.2);
+  transform: translateY(-3px) scale(1.04);
+  animation: none;
 }
 
 .terminal-fab-icon {
-  letter-spacing: -0.05em;
+  font-size: 0.95rem;
+  line-height: 1;
 }
 
+.terminal-fab-label {
+  font-size: 0.5rem;
+  opacity: 0.55;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1;
+}
