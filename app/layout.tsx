@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import FluidCursorTrailWrapper from "./components/common/FluidCursorTrailWrapper";
+import TerminalController from "./components/common/TerminalController";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -93,6 +94,7 @@ export default function RootLayout({
       >
         {children}
         <FluidCursorTrailWrapper />
+        <TerminalController />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
