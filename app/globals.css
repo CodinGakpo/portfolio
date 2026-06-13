@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --accent: #6d28d9;
+  --accent-light: #8b5cf6;
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-hover: rgba(255, 255, 255, 0.06);
+  --text-muted: rgba(255, 255, 255, 0.5);
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --gold: #f59e0b;
+  --silver: #94a3b8;
+  --badge-blue: #3b82f6;
+  --badge-purple: #8b5cf6;
+  --badge-gray: #6b7280;
+  --terminal-green: #6ee7b7;
+}
+
+* {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overscroll-behavior-y: auto;
+  color: var(--foreground);
+  background:
+    radial-gradient(circle at 15% 20%, rgba(16, 185, 129, 0.08), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(52, 211, 153, 0.05), transparent 40%),
+    var(--background);
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+}
+
+/* Scrollbar */
+:root {
+  --scrollbarColor: rgba(255, 255, 255, 0.1);
+  --scrollbarBackground: rgba(0, 0, 0, 0);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbarColor) var(--scrollbarBackground);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbarColor);
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Selection */
+::selection {
+  background: rgba(16, 185, 129, 0.35);
+  color: #fff;
+}
+
+/* Section base */
+section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glassmorphic card */
+.glass-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  background: var(--card-hover);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #6ee7b7 0%, #34d399 45%, #10b981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section heading line */
+.section-line {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #34d399, transparent);
+  margin-bottom: 1rem;
+}
+
+/* Noise overlay for texture */
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 100px;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+}
