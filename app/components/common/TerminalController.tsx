@@ -11,19 +11,29 @@ const TerminalController = () => {
   const toggle = () => setIsOpen(prev => !prev);
   const close  = () => setIsOpen(false);
 
-  // Global Ctrl+` — also handled inside the input's keydown when focused
+  // Global shortcut: Ctrl+` (Backquote)
+  // Uses e.code (physical key) not e.key — reliable on Linux + Windows
+  // regardless of keyboard layout or what character Ctrl produces.
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.ctrlKey && e.key === '`') {
+      const isBackquote =
+        e.code === 'Backquote' ||
+        e.key === '`' ||
+        e.keyCode === 192;
+
+      if (e.ctrlKey && isBackquote) {
         e.preventDefault();
         toggle();
+        return;
       }
       if (e.key === 'Escape' && isOpen) {
         close();
       }
     };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
+    // document instead of window — catches events even when
+    // focus is inside an iframe or deep shadow DOM
+    document.addEventListener('keydown', handler, { capture: true });
+    return () => document.removeEventListener('keydown', handler, { capture: true });
   }, [isOpen]);
 
   return (

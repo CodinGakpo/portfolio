@@ -126,8 +126,13 @@ const Terminal = ({ isOpen, onClose, onToggle }: TerminalProps) => {
   // ── Keyboard handling (Fix 2: Ctrl+` handled here too) ───────────────────
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    // Fix 2: catch Ctrl+` while input is focused
-    if (e.ctrlKey && e.key === '`') {
+    // Ctrl+` — physical key check (cross-platform: Linux & Windows)
+    const isBackquote =
+      e.code === 'Backquote' ||
+      e.key === '`' ||
+      e.keyCode === 192;
+
+    if (e.ctrlKey && isBackquote) {
       e.preventDefault();
       onToggle();
       return;
