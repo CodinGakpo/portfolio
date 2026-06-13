@@ -339,6 +339,18 @@ section {
   font-family: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', 'Courier New', monospace;
   font-size: 0.82rem;
   user-select: text;
+  transition: width 0.25s ease, height 0.25s ease;
+}
+
+/* Minimized — title bar only */
+.terminal-window--minimized {
+  height: auto !important;
+  width: min(420px, 94vw) !important;
+}
+
+/* Maximized */
+.terminal-window--maximized {
+  border-radius: 8px;
 }
 
 /* Title bar */

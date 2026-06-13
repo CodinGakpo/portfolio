@@ -3,21 +3,23 @@
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 
-// Dynamic import avoids SSR issues with uuid/uuid and browser APIs
 const Terminal = dynamic(() => import('../terminal'), { ssr: false });
 
 const TerminalController = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Ctrl+` global toggle
+  const toggle = () => setIsOpen(prev => !prev);
+  const close  = () => setIsOpen(false);
+
+  // Global Ctrl+` — also handled inside the input's keydown when focused
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.ctrlKey && e.key === '`') {
         e.preventDefault();
-        setIsOpen(prev => !prev);
+        toggle();
       }
       if (e.key === 'Escape' && isOpen) {
-        setIsOpen(false);
+        close();
       }
     };
     window.addEventListener('keydown', handler);
@@ -26,17 +28,16 @@ const TerminalController = () => {
 
   return (
     <>
-      {/* Floating trigger button */}
       <button
-        onClick={() => setIsOpen(prev => !prev)}
+        onClick={toggle}
         className="terminal-fab"
-        aria-label="Open terminal"
+        aria-label="Toggle terminal"
         title="Open terminal (Ctrl+`)"
       >
-        <span className="terminal-fab-icon">{'_'}</span>
+        <span className="terminal-fab-icon">_</span>
       </button>
 
-      <Terminal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <Terminal isOpen={isOpen} onClose={close} onToggle={toggle} />
     </>
   );
 };
