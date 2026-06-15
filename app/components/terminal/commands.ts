@@ -1,10 +1,10 @@
 // ─── Command Registry ─────────────────────────────────────────────────────────
-// Phase 1: Only `help`/`man` and `clear` are wired.
-// Phase 2 will register all content commands.
-// Phase 3 will register `ask`.
+// Phase 1: help/man, clear
+// Phase 2: all content commands (whoami, ls, cat, cd, open, skills, history)
+// Phase 3: ask (Gemini LLM)
 
 import { v4 as uuid } from 'uuid';
-import type { Command, PushFn, TerminalLine } from './types';
+import type { Command, PushFn, TerminalLine, ExecOptions } from './types';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -120,10 +120,12 @@ export const registerCommands = (cmds: Command[]) => registerAll(cmds);
 
 // ─── Public: execute a raw input string ───────────────────────────────────────
 
+
 export const execute = async (
   raw: string,
   push: PushFn,
-  onClear: () => void
+  onClear: () => void,
+  opts: ExecOptions = {}
 ): Promise<void> => {
   const trimmed = raw.trim();
   if (!trimmed) return;
@@ -147,5 +149,5 @@ export const execute = async (
     return;
   }
 
-  await cmd.handler(args, push);
+  await cmd.handler(args, push, opts);
 };
