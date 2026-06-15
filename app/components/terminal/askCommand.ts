@@ -44,17 +44,8 @@ const ASK_COMMANDS: Command[] = [
           return;
         }
 
-        // Read the full streamed response
-        const reader  = res.body.getReader();
-        const decoder = new TextDecoder();
-        let full = '';
-
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          full += decoder.decode(value, { stream: true });
-        }
-        full += decoder.decode(); // flush
+        // Read the full response
+        const full = await res.text();
 
         const trimmed = full.trim();
         if (!trimmed) {

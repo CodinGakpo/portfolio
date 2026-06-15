@@ -137,35 +137,18 @@ export async function POST(req: NextRequest) {
     systemInstruction: SYSTEM_PROMPT,
   });
 
-  // ── Streaming response ────────────────────────────────────────────────────
-
-  const encoder = new TextEncoder();
-
-  const stream = new ReadableStream({
-    async start(controller) {
-      try {
-        const result = await model.generateContentStream(question);
-
-        for await (const chunk of result.stream) {
-          const text = chunk.text();
-          if (text) {
-            controller.enqueue(encoder.encode(text));
-          }
-        }
-      } catch (err: unknown) {
-        const msg = err instanceof Error ? err.message : 'Gemini API error';
-        controller.enqueue(encoder.encode(`\nError: ${msg}`));
-      } finally {
-        controller.close();
-      }
-    },
-  });
-
-  return new Response(stream, {
-    headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
-      'Transfer-Encoding': 'chunked',
-      'X-Content-Type-Options': 'nosniff',
-    },
-  });
+  try {
+    const result = await model.generateContent(question);
+    const text = result.response.text();
+    
+    return new Response(text, {
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'X-Content-Type-Options': 'nosniff',
+      },
+    });
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : 'Gemini API error';
+    return new Response(`Error: ${msg}`, { status: 500 });
+  }
 }
