@@ -46,7 +46,6 @@ const COMMANDS: Command[] = [
       }
 
       // Full command listing
-      const cmds = [...new Set([...registry.values()])]; // deduplicate aliases
       push([
         divider(),
         line('  ADIDEV PORTFOLIO — COMMAND REFERENCE', 'success'),
@@ -93,7 +92,7 @@ const COMMANDS: Command[] = [
     name: 'clear',
     aliases: ['cls'],
     description: 'Clear the terminal output',
-    handler: (_args, _push) => {
+    handler: () => {
       // Handled specially in the terminal component (resets lines array)
     },
   },

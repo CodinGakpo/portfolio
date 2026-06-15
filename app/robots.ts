@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/private/',
     },
-    sitemap: 'https://pratyaksha-11.vercel.app/sitemap.xml',
+    sitemap: 'https://adidev.dev/sitemap.xml',
   };
 }
