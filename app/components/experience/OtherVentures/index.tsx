@@ -208,11 +208,11 @@ const CubeOverlay = () => {
     <div ref={rootRef} className={styles.root}>
       <a
         className={styles.buyNowBtn}
-        href="https://crystalispurse.vercel.app/"
+        href="https://github.com/CodinGakpo"
         target="_blank"
         rel="noopener noreferrer"
       >
-        Buy Now
+        View Source
         <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path d="M1 6h10M6 1l5 5-5 5" />
         </svg>
@@ -262,11 +262,11 @@ const CubeOverlay = () => {
       {/* credit */}
       <div className={styles.credit}>
         <a
-          href="https://www.linkedin.com/posts/luis-martinez-lr_ai-creativity-reversecreativity-activity-7366853269517651970-zeUD"
+          href="https://linkedin.com/in/adidev-anand"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Crystalispurse@gmail.com By Pratyaksha
+          anandadidev43@gmail.com By Adidev Anand
         </a>
       </div>
 
