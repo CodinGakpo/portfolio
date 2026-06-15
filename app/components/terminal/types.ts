@@ -6,8 +6,14 @@ export interface TerminalLine {
   id: string;
   type: OutputType;
   content: string;
-  href?: string; // for 'link' type
-  label?: string; // display label for links
+  href?: string;   // for 'link' type
+  label?: string;  // display label for links
+}
+
+// ExecOptions is forward-declared here to avoid circular imports
+export interface ExecOptions {
+  history?: string[];
+  onClose?: () => void;
 }
 
 export interface Command {
@@ -15,7 +21,7 @@ export interface Command {
   aliases?: string[];
   description: string;
   usage?: string;
-  handler: (args: string[], push: PushFn) => void | Promise<void>;
+  handler: (args: string[], push: PushFn, opts?: ExecOptions) => void | Promise<void>;
 }
 
 export type PushFn = (lines: TerminalLine | TerminalLine[]) => void;

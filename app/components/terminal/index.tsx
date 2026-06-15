@@ -5,6 +5,11 @@ import { v4 as uuid } from 'uuid';
 import { execute } from './commands';
 import type { TerminalLine } from './types';
 
+// Phase 2 commands — imported for side-effect (auto-registers on load)
+import './contentCommands';
+// Phase 3: ask (Gemini LLM)
+import './askCommand';
+
 // ─── Boot message ─────────────────────────────────────────────────────────────
 
 const BOOT_LINES: TerminalLine[] = [
@@ -119,7 +124,10 @@ const Terminal = ({ isOpen, onClose, onToggle }: TerminalProps) => {
 
     setCmdHistory(prev => [raw, ...prev]);
     setIsLoading(true);
-    await execute(raw, push, clear);
+    await execute(raw, push, clear, {
+      history: cmdHistory,
+      onClose,
+    });
     setIsLoading(false);
   };
 
