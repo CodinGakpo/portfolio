@@ -1,10 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, ExternalLink, Boxes } from 'lucide-react';
-import { FiGithub } from 'react-icons/fi';
-import { ProjectDoc } from '../../../data/projectDocs';
+import { ProjectDoc } from '../../data/projectDocs';
 
 export default function ProjectDocViewer({ project }: { project: ProjectDoc }) {
   const [activeTabId, setActiveTabId] = useState(project.tabs[0]?.id || '');

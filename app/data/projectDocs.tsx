@@ -149,7 +149,7 @@ export const projectDocs: Record<string, ProjectDoc> = {
             content: (
               <>
                 <p>
-                  To prevent double bookings, the system uses database-level locking. Specifically, it employs Django's <code>select_for_update()</code> to lock the specific appointment slot row in PostgreSQL until the booking transaction completes.
+                  To prevent double bookings, the system uses database-level locking. Specifically, it employs Django&apos;s <code>select_for_update()</code> to lock the specific appointment slot row in PostgreSQL until the booking transaction completes.
                 </p>
                 <ul className="list-disc pl-6 space-y-2 mt-4 text-[var(--text-secondary)]">
                   <li><strong>Pessimistic Locking:</strong> Ensures that if two users request the same slot at the exact same millisecond, the database serializes the transactions.</li>
@@ -247,7 +247,7 @@ export const projectDocs: Record<string, ProjectDoc> = {
             content: (
               <>
                 <p>
-                  Enterprise documents often exceed the token limits of modern LLMs. Feeding a 100-page policy manual into OpenAI's API directly results in a context window error.
+                  Enterprise documents often exceed the token limits of modern LLMs. Feeding a 100-page policy manual into OpenAI&apos;s API directly results in a context window error.
                 </p>
                 <p>
                   DocuMiner implements a <strong>Map-Reduce summarization strategy</strong> via LangChain:
