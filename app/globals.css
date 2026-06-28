@@ -20,6 +20,16 @@
   --terminal-green: #6ee7b7;
 }
 
+.doc-root {
+  --doc-bg: #060b13;
+  --doc-card: #0d1524;
+  --doc-card-hover: #152036;
+  --doc-border: rgba(255, 255, 255, 0.08);
+  --doc-accent: #38bdf8;
+  --doc-text: #94a3b8;
+  --doc-heading: #f8fafc;
+}
+
 * {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

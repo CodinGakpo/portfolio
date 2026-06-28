@@ -31,10 +31,10 @@ const Home = () => {
       <Navbar />
       <main>
         <Hero />
+        <Achievements />
         <About />
         <Skills />
         <Projects />
-        <Achievements />
         <Resume />
         <Contact />
       </main>
