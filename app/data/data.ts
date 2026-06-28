@@ -114,6 +114,14 @@ export const certifications = [
 
 // ─── Projects ────────────────────────────────────────────────────────────────
 
+export interface TimelineEntry {
+  date: string;
+  title: string;
+  description: string;
+  problemFaced: string;
+  solution: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -126,6 +134,7 @@ export interface Project {
   highlights: string[];
   techStack: string[];
   standout: string;
+  timeline: TimelineEntry[];
 }
 
 export const projectsData: Project[] = [
@@ -150,6 +159,22 @@ export const projectsData: Project[] = [
     ],
     standout:
       'Production deployment with secure IAM, HTTPS termination, and zero-downtime CI/CD.',
+    timeline: [
+      {
+        date: 'Phase 1',
+        title: 'Initial Architecture & Setup',
+        description: 'Designed the core monolithic architecture and set up AWS VPC with public and private subnets.',
+        problemFaced: 'Managing secure database credentials and access without hardcoding.',
+        solution: 'Implemented IAM roles and Secrets Manager to inject credentials dynamically into the EC2 instances.'
+      },
+      {
+        date: 'Phase 2',
+        title: 'AI Integration & Asynchronous Tasks',
+        description: 'Integrated the Keras CNN model for issue classification.',
+        problemFaced: 'Model inference was blocking the main thread, causing API timeouts for users.',
+        solution: 'Offloaded model inference to a Celery worker pool backed by Redis, returning a task ID to the client for polling.'
+      }
+    ]
   },
   {
     id: 'documiner',
@@ -167,6 +192,22 @@ export const projectsData: Project[] = [
       'FastAPI', 'LangChain', 'OpenAI API', 'spaCy', 'Tesseract OCR', 'Python',
     ],
     standout: 'True multi-stage AI pipeline with zero-shot classification and multi-format document processing.',
+    timeline: [
+      {
+        date: 'Phase 1',
+        title: 'Core Extraction Engine',
+        description: 'Built the Tesseract OCR and PDF parsing utility for multi-format support.',
+        problemFaced: 'Scanned PDFs were yielding garbage text due to poor image quality.',
+        solution: 'Added an OpenCV preprocessing step (binarization, deskewing) before passing images to Tesseract.'
+      },
+      {
+        date: 'Phase 2',
+        title: 'Agentic Pipeline Integration',
+        description: 'Integrated LangChain and OpenAI for compliance analysis.',
+        problemFaced: 'Context window limits were exceeded on large enterprise documents.',
+        solution: 'Implemented a map-reduce summarization strategy and chunking with overlap to maintain context.'
+      }
+    ]
   },
   {
     id: 'drdeepti',
@@ -185,6 +226,15 @@ export const projectsData: Project[] = [
     ],
     techStack: ['Django', 'React', 'PostgreSQL', 'Render', 'Vercel'],
     standout: 'Used by an active clinic with real users and operational impact.',
+    timeline: [
+      {
+        date: 'Phase 1',
+        title: 'MVP Development',
+        description: 'Developed the core booking flow and admin dashboard.',
+        problemFaced: 'Double bookings occurred when two users clicked "book" simultaneously.',
+        solution: 'Implemented database-level locking and optimistic concurrency control using Django transactions.'
+      }
+    ]
   },
 ];
 
@@ -259,10 +309,10 @@ export const contactData = {
 // ─── Navigation ──────────────────────────────────────────────────────────────
 
 export const navLinks = [
+  { label: 'Achievements', href: '#achievements' },
   { label: 'About', href: '#about' },
   { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Achievements', href: '#achievements' },
   { label: 'Resume', href: '#resume' },
   { label: 'Contact', href: '#contact' },
 ];

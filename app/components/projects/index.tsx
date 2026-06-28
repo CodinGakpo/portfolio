@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { projectsData, Project } from '../../data/data';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -90,30 +92,28 @@ const ProjectCard = ({ project }: { project: Project }) => {
       </div>
 
       {/* Expanded details */}
-      {isExpanded && (
-        <div className="mt-4 pt-4 border-t border-white/10">
-          <ul className="space-y-3 mb-5">
-            {project.highlights.map((h, i) => (
-              <li key={i} className="text-sm leading-relaxed flex gap-2" style={{ color: 'var(--text-secondary)' }}>
-                <span style={{ color: 'var(--accent-light)' }}>▸</span>
-                {h}
-              </li>
-            ))}
-          </ul>
-          <p className="text-xs italic" style={{ color: 'var(--text-muted)' }}>
-            {project.standout}
-          </p>
-        </div>
-      )}
+      {/* Expanded details are moved to the dedicated project page */}
 
       {/* Links */}
-      <div className="flex gap-3 mt-4">
+      <div className="flex gap-3 mt-4 pt-4 border-t border-white/10">
+        <Link
+          href={`/projects/${project.id}`}
+          className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full transition-all duration-200 hover:scale-105"
+          style={{
+            background: 'linear-gradient(135deg, #10b981, #059669)',
+            color: '#fff',
+            fontWeight: 500,
+          }}
+        >
+          View Documentation
+          <ArrowRight className="w-4 h-4" />
+        </Link>
         <a
           href={project.githubUrl}
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="text-xs px-4 py-2 rounded-full transition-all duration-200 hover:scale-105"
+          className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full transition-all duration-200 hover:scale-105"
           style={{
             border: '1px solid rgba(255,255,255,0.15)',
             color: 'var(--text-secondary)',
@@ -121,21 +121,6 @@ const ProjectCard = ({ project }: { project: Project }) => {
         >
           GitHub
         </a>
-        {project.liveUrl && project.liveUrl !== '#' && (
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="text-xs px-4 py-2 rounded-full transition-all duration-200 hover:scale-105"
-            style={{
-              background: 'linear-gradient(135deg, #8b5cf6, #6d28d9)',
-              color: '#fff',
-            }}
-          >
-            Live ↗
-          </a>
-        )}
       </div>
     </div>
   );

@@ -2,16 +2,19 @@
 
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import Image from 'next/image';
 import { aboutData } from '../../data/data';
 
 const Hero = () => {
   const lineRef = useRef<HTMLHeadingElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const tl = gsap.timeline({ delay: 0.3 });
     tl.fromTo(lineRef.current, { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' });
+    tl.fromTo(imageRef.current, { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8, ease: 'power3.out' }, '-=0.5');
     tl.fromTo(panelRef.current, { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' }, '-=0.3');
     tl.fromTo('.hero-stat-card', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.12, ease: 'power3.out' }, '-=0.25');
   }, []);
@@ -19,9 +22,25 @@ const Hero = () => {
   return (
     <section id="hero" className="min-h-screen flex items-center px-6 py-28 noise-overlay">
       <div className="relative z-10 max-w-5xl mx-auto w-full">
-        <h1 ref={lineRef} className="text-4xl sm:text-5xl md:text-7xl font-semibold tracking-tight mb-8" style={{ opacity: 0 }}>
-          Hi, I am Adidev.
-        </h1>
+        <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10 md:gap-16 mb-12">
+          <div className="flex-1 w-full text-center md:text-left">
+            <h1 ref={lineRef} className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight" style={{ opacity: 0 }}>
+              Hi, I am Adidev.
+            </h1>
+          </div>
+          <div className="flex-shrink-0" style={{ opacity: 0 }} ref={imageRef}>
+            <div className="p-3 md:p-4 rounded-full border-2 border-slate-700/60">
+              <Image 
+                src="/ProfilePicture.png" 
+                alt="Adidev Anand" 
+                width={320} 
+                height={320} 
+                className="rounded-full object-cover aspect-square w-[220px] h-[220px] md:w-[320px] md:h-[320px]"
+                priority
+              />
+            </div>
+          </div>
+        </div>
 
         <div
           ref={panelRef}

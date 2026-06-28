@@ -4,6 +4,8 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { contactData } from '../../data/data';
+import { Mail, Send } from 'lucide-react';
+import { FiGithub, FiLinkedin } from 'react-icons/fi';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,7 +45,7 @@ const Contact = () => {
             className="contact-link glass-card px-6 py-3 text-sm flex items-center justify-center gap-2 hover:border-purple-500/30 transition-all"
             style={{ opacity: 0 }}
           >
-            <span>✉</span> {contactData.links.email}
+            <Mail className="w-4 h-4 text-emerald-400" /> {contactData.links.email}
           </a>
           <a
             href={contactData.links.github}
@@ -52,7 +54,7 @@ const Contact = () => {
             className="contact-link glass-card px-6 py-3 text-sm flex items-center justify-center gap-2 hover:border-purple-500/30 transition-all"
             style={{ opacity: 0 }}
           >
-            <span>⟨/⟩</span> GitHub
+            <FiGithub className="w-4 h-4 text-emerald-400" /> GitHub
           </a>
           <a
             href={contactData.links.linkedin}
@@ -61,14 +63,14 @@ const Contact = () => {
             className="contact-link glass-card px-6 py-3 text-sm flex items-center justify-center gap-2 hover:border-purple-500/30 transition-all"
             style={{ opacity: 0 }}
           >
-            <span>in</span> LinkedIn
+            <FiLinkedin className="w-4 h-4 text-emerald-400" /> LinkedIn
           </a>
         </div>
 
         {/* CTA */}
         <a
           href={contactData.cta.href}
-          className="contact-link inline-block px-10 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(139,92,246,0.3)]"
+          className="contact-link inline-flex items-center justify-center gap-2 px-10 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(139,92,246,0.3)]"
           style={{
             background: 'linear-gradient(135deg, #8b5cf6, #6d28d9)',
             color: '#fff',
@@ -76,6 +78,7 @@ const Contact = () => {
           }}
         >
           {contactData.cta.label}
+          <Send className="w-4 h-4" />
         </a>
 
         {/* Footer */}

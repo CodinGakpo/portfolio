@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { navLinks, heroData } from '../../data/data';
 import { useTerminalStore } from '../../stores/terminalStore';
+import Link from 'next/link';
+import { Home } from 'lucide-react';
 
 const Navbar = () => {
   const navRef = useRef<HTMLElement>(null);
@@ -35,13 +37,14 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <a
-          href="#hero"
-          className="text-lg font-bold tracking-tight hover:opacity-80 transition-opacity"
+        <Link
+          href="/"
+          className="text-lg font-bold tracking-tight hover:opacity-80 transition-opacity flex items-center gap-2"
         >
+          <Home className="w-5 h-5 text-emerald-400" />
           {heroData.name.split(' ')[0]}
           <span style={{ color: 'var(--accent-light)' }}>.</span>
-        </a>
+        </Link>
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
