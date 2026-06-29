@@ -41,18 +41,21 @@ export const projectDocs: Record<string, ProjectDoc> = {
         id: 'overview',
         label: 'Overview',
         documentTitle: 'Product Overview',
-        documentDescription: 'What DrDeepti is, who it\'s for, and the core problems it solves.',
+        documentDescription: 'Who Dr. Deepti is, the purpose of the platform, and the core problems it solves.',
         sections: [
           {
-            id: 'what-is-drdeepti',
-            title: 'What is DrDeepti?',
+            id: 'who-is-drdeepti',
+            title: 'Who is DrDeepti?',
             content: (
               <>
                 <p>
-                  DrDeepti is a real-time clinic appointment booking system designed to streamline patient scheduling and clinic administration. Patients can view live availability, book slots, and manage their appointments, while clinic staff use a unified dashboard to track daily capacity and patient records.
+                  Dr. Deepti is an experienced ENT (Ear, Nose, and Throat) specialist dedicated to providing comprehensive medical care. To support her active practice, this platform was developed as a specialized, real-time clinic appointment booking system designed to streamline patient scheduling and overall clinic administration.
                 </p>
                 <p>
-                  Built with a focus on reliability, the platform ensures that the high volume of concurrent booking attempts does not result in double bookings or overlapping schedules.
+                  The system empowers patients to easily view live availability, book consultation slots, and manage their appointments online. Simultaneously, it equips the clinic staff with a unified administrative dashboard to track daily capacity, manage patient records, and maintain smooth operations.
+                </p>
+                <p>
+                  Built with a strong focus on reliability, the platform implements robust concurrency controls to ensure that high volumes of simultaneous booking attempts never result in double bookings or overlapping schedules. This seamless automation allows Dr. Deepti and her team to focus entirely on patient care rather than administrative overhead.
                 </p>
               </>
             ),
