@@ -254,7 +254,7 @@ export default function ProjectDocViewer({ project }: { project: ProjectDoc }) {
                         color: var(--doc-accent);
                       }
                     `}} />
-                    {section.content}
+                    <div>{section.content}</div>
                   </div>
                 </section>
               ))}
