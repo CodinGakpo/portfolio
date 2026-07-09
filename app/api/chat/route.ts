@@ -4,7 +4,7 @@
 // Returns: streaming plain-text response (text/plain)
 // The system prompt is built server-side from portfolio data — never exposed client-side.
 
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { BedrockRuntimeClient, ConverseCommand } from '@aws-sdk/client-bedrock-runtime';
 import { NextRequest } from 'next/server';
 
 // ─── System prompt ────────────────────────────────────────────────────────────
@@ -110,11 +110,13 @@ GUARDRAILS:
 // ─── Route handler ────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
-  const apiKey = process.env.GEMINI_API_KEY;
+  const region = process.env.AWS_REGION;
+  const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+  const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
-  if (!apiKey) {
+  if (!region || !accessKeyId || !secretAccessKey) {
     return new Response(
-      'GEMINI_API_KEY is not configured. Add it to .env.local.',
+      'AWS credentials are not configured. Add them to .env.local.',
       { status: 500 }
     );
   }
@@ -131,15 +133,32 @@ export async function POST(req: NextRequest) {
     return new Response('Missing question field.', { status: 400 });
   }
 
-  const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({
-    model: 'gemini-flash-latest',
-    systemInstruction: SYSTEM_PROMPT,
+  const client = new BedrockRuntimeClient({
+    region,
+    credentials: {
+      accessKeyId,
+      secretAccessKey,
+    },
   });
 
   try {
-    const result = await model.generateContent(question);
-    const text = result.response.text();
+    const command = new ConverseCommand({
+      modelId: 'amazon.nova-micro-v1:0',
+      messages: [
+        {
+          role: 'user',
+          content: [{ text: question }],
+        },
+      ],
+      system: [{ text: SYSTEM_PROMPT }],
+      inferenceConfig: {
+        maxTokens: 512,
+        temperature: 0.7,
+      },
+    });
+
+    const response = await client.send(command);
+    const text = response.output?.message?.content?.[0]?.text ?? 'No response generated.';
     
     return new Response(text, {
       headers: {
@@ -148,7 +167,7 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : 'Gemini API error';
+    const msg = err instanceof Error ? err.message : 'Amazon Bedrock API error';
     return new Response(`Error: ${msg}`, { status: 500 });
   }
 }
