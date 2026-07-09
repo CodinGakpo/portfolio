@@ -111,8 +111,8 @@ GUARDRAILS:
 
 export async function POST(req: NextRequest) {
   const region = process.env.BEDROCK_AWS_REGION;
-  const accessKeyId = process.env.BEDROCK_AWS_ACCESS_KEY_ID;
-  const secretAccessKey = process.env.BEDROCK_AWS_SECRET_ACCESS_KEY;
+  const accessKeyId = process.env.BEDROCK_AWS_ACCESS_KEY;
+  const secretAccessKey = process.env.BEDROCK_AWS_SECRET_KEY;
 
   if (!region || !accessKeyId || !secretAccessKey) {
     return new Response(
