@@ -30,12 +30,12 @@ export const projectDocs: Record<string, ProjectDoc> = {
   drdeepti: {
     id: 'drdeepti',
     title: 'DrDeepti',
-    subtitle: 'Real-time Patient Appointment System',
-    oneLiner: 'A production clinic booking platform with real-time slot conflict prevention and a comprehensive admin dashboard.',
-    version: 'V1',
-    versionSummary: 'Production release covering the booking flow, concurrency control backend, and staff operations dashboard.',
+    subtitle: 'Appointment Platform + WhatsApp Chatbot for Adarsh ENT Clinic',
+    oneLiner: 'A production-grade ENT clinic platform — a web booking system for self-service slot management, extended by a serverless WhatsApp chatbot that captures patient leads directly in-chat.',
+    version: 'V1.1',
+    versionSummary: 'Web platform live at drdeeptientdelhi.in · WhatsApp bot deployed on AWS Lambda via Meta Cloud API.',
     liveUrl: 'https://drdeeptientdelhi.in',
-    githubUrl: '#',
+    githubUrl: 'https://github.com/CodinGakpo/DrDeeptiEnt',
     tabs: [
       {
         id: 'overview',
@@ -78,7 +78,7 @@ export const projectDocs: Record<string, ProjectDoc> = {
             id: 'key-roles',
             title: 'Key Roles & Personas',
             content: (
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto mt-4">
                 <table className="w-full text-left border-collapse">
                   <thead>
                     <tr>
@@ -116,7 +116,7 @@ export const projectDocs: Record<string, ProjectDoc> = {
             id: 'technology-stack',
             title: 'Technology Stack',
             content: (
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto mt-4">
                 <table className="w-full text-left border-collapse">
                   <thead>
                     <tr>
@@ -164,7 +164,239 @@ export const projectDocs: Record<string, ProjectDoc> = {
           },
         ],
       },
-    ],
+      {
+        id: 'whatsapp-bot',
+        label: 'WhatsApp Bot',
+        documentTitle: 'WhatsApp Chatbot Extension',
+        documentDescription: 'Serverless chatbot bringing appointment booking to WhatsApp — architecture, conversation design, and database schema.',
+        sections: [
+          {
+            id: 'why-chatbot',
+            title: 'Why a Chatbot?',
+            content: (
+              <>
+                <p>
+                  The web platform solved structured bookings, but the clinic was still fielding a high volume of unstructured WhatsApp inquiries — patients asking about availability, fees, and directions directly in chat. These were manually handled and frequently missed. The WhatsApp chatbot brings the same booking flow into the conversation the patient is already having, with zero app install required.
+                </p>
+                <p className="mt-4 p-4 border border-[var(--card-border)] rounded-md text-[var(--text-secondary)]">
+                  📱 The website remains the primary booking surface. The chatbot is a complementary channel — capturing leads and guiding patients through a structured booking flow without leaving WhatsApp.
+                </p>
+              </>
+            )
+          },
+          {
+            id: 'chatbot-architecture',
+            title: 'System Architecture',
+            content: (
+              <>
+                <p>
+                  The chatbot is a fully serverless, independent service. It shares the clinic brand but runs on a separate infrastructure stack from the web platform.
+                </p>
+                <div className="overflow-x-auto mt-4">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr>
+                        <th className="p-4 border-b border-[var(--card-border)] font-semibold">Layer</th>
+                        <th className="p-4 border-b border-[var(--card-border)] font-semibold">Technology</th>
+                        <th className="p-4 border-b border-[var(--card-border)] font-semibold">Role</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="p-4 border-b border-[var(--card-border)]">Messaging</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">Meta WhatsApp Cloud API</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">Inbound/outbound message transport</td>
+                      </tr>
+                      <tr>
+                        <td className="p-4 border-b border-[var(--card-border)]">Gateway</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">AWS API Gateway (HTTP API)</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">Webhook receiver — routes POST to Lambda</td>
+                      </tr>
+                      <tr>
+                        <td className="p-4 border-b border-[var(--card-border)]">Compute</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">AWS Lambda (Python 3.12)</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">Stateless request handler — ASGI via Mangum</td>
+                      </tr>
+                      <tr>
+                        <td className="p-4 border-b border-[var(--card-border)]">Framework</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">FastAPI + Mangum</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">Async web framework; Mangum shims ASGI to Lambda</td>
+                      </tr>
+                      <tr>
+                        <td className="p-4 border-b border-[var(--card-border)]">Database</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">Neon PostgreSQL (serverless)</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">Session state + lead storage; asyncpg + SQLAlchemy</td>
+                      </tr>
+                      <tr>
+                        <td className="p-4 border-b border-[var(--card-border)]">IaC</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">AWS SAM + CloudFormation</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">Declarative, version-controlled infra</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p className="mt-4">
+                  Data flow: Patient → WhatsApp → Meta Cloud API → API Gateway → Lambda → NeonDB. Outbound replies follow the reverse path, triggered within the same Lambda invocation.
+                </p>
+              </>
+            )
+          },
+          {
+            id: 'conversation-design',
+            title: 'Conversation Design',
+            content: (
+              <>
+                <p>
+                  The bot uses a guided decision-tree rather than NLP. Reliability over complexity for v1 — every state is deterministic and auditable.
+                </p>
+                <ul className="list-disc pl-6 space-y-2 mt-4 text-[var(--text-secondary)]">
+                  <li><strong>nodes.json</strong> — single source of truth for all conversation states; fully editable by non-engineers without code changes.</li>
+                  <li><strong>Node types:</strong> options (list/button), text_input, action nodes.</li>
+                  <li><strong>Context accumulation:</strong> patient name, age, concern, location, and preferred time collected step-by-step.</li>
+                  <li><strong>Universal Navigation:</strong> Back and Main Menu buttons on every node — patients are never stuck. Reset keywords (hi, menu) always return to root.</li>
+                  <li><strong>WhatsApp UI constraints respected:</strong> List messages (≤10 items) vs. Button replies (≤3) chosen per node.</li>
+                </ul>
+              </>
+            )
+          }
+        ]
+      },
+      {
+        id: 'challenges',
+        label: 'Challenges',
+        documentTitle: 'Debugging Journey',
+        documentDescription: 'Real production bugs faced during the WhatsApp Chatbot deployment — problem, root cause, fix, and learnings.',
+        sections: [
+          {
+            id: 'two-waba-problem',
+            title: 'The Two WABA Problem (Silent Message Drop)',
+            content: (
+              <>
+                <p>
+                  This was the most time-consuming bug. The bot responded correctly to direct POST tests, but zero real patient messages ever triggered a Lambda invocation.
+                </p>
+                <div className="overflow-x-auto mt-4">
+                  <table className="w-full text-left border-collapse">
+                    <tbody>
+                      <tr>
+                        <td className="p-4 border-b border-[var(--card-border)] font-semibold">Symptom</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">CloudWatch had no new logs after July 5th. Direct POST to API Gateway returned 403 Missing Signature — proving Lambda was alive and reachable.</td>
+                      </tr>
+                      <tr>
+                        <td className="p-4 border-b border-[var(--card-border)] font-semibold">Investigation</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">Checked app permissions (granted) → webhook verification GET (passing) → messages subscription in dashboard (showing subscribed) → API Gateway access logs (none existed).</td>
+                      </tr>
+                      <tr>
+                        <td className="p-4 border-b border-[var(--card-border)] font-semibold">Root Cause</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">The Meta account had two separate WhatsApp Business Accounts (WABAs). The active clinic number belonged to one that had never been explicitly subscribed to the App via API. Meta silently dropped all messages.</td>
+                      </tr>
+                      <tr>
+                        <td className="p-4 border-b border-[var(--card-border)] font-semibold">Fix</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">Called <code>POST /&#123;waba_id&#125;/subscribed_apps</code> via the Meta Graph API to subscribe the correct WABA.</td>
+                      </tr>
+                      <tr>
+                        <td className="p-4 border-b border-[var(--card-border)] font-semibold">Learned</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">Meta&apos;s dashboard &quot;messages: subscribed&quot; indicator is per-WABA and often visually misleading if you have multiple WABAs.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            )
+          },
+          {
+            id: 'staff-alert-policy',
+            title: 'Staff Alert — 24h Window Policy',
+            content: (
+              <>
+                <div className="overflow-x-auto mt-4">
+                  <table className="w-full text-left border-collapse">
+                    <tbody>
+                      <tr>
+                        <td className="p-4 border-b border-[var(--card-border)] font-semibold">Symptom</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">Booking confirmation arrived on patient phone, lead saved to DB, but no alert on staff number.</td>
+                      </tr>
+                      <tr>
+                        <td className="p-4 border-b border-[var(--card-border)] font-semibold">Root Cause</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">WhatsApp&apos;s 24-hour customer service window blocks free-form messages to numbers that haven&apos;t messaged the bot first. The staff number had never initiated contact.</td>
+                      </tr>
+                      <tr>
+                        <td className="p-4 border-b border-[var(--card-border)] font-semibold">Fix</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">Created a Meta-approved Utility message template (new_lead_alert) with 7 dynamic variable slots. Rewrote template significantly after it was initially rejected for &quot;too many variables for its length&quot;.</td>
+                      </tr>
+                      <tr>
+                        <td className="p-4 border-b border-[var(--card-border)] font-semibold">Learned</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">WhatsApp templates require a high ratio of static text to variables, and variables cannot be the first or last element of the body.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            )
+          }
+        ]
+      },
+      {
+        id: 'roadmap',
+        label: 'Roadmap',
+        documentTitle: 'Known Limitations & V2 Roadmap',
+        documentDescription: 'Current limitations, planned improvements, and cost snapshot.',
+        sections: [
+          {
+            id: 'known-limitations',
+            title: 'Known Limitations (V1)',
+            content: (
+              <ul className="list-disc pl-6 space-y-2 mt-4 text-[var(--text-secondary)]">
+                <li><code>collect_time</code> node has no options defined — patient gets stuck at this step (known bug, scheduled for v2).</li>
+                <li>Access token is a temporary user token — needs migration to a permanent System User token.</li>
+                <li>No graceful error handling if Neon DB is unreachable — Lambda returns 500, Meta retries up to 3×.</li>
+                <li>No admin dashboard to view or manage leads from the chatbot.</li>
+                <li>Chatbot bookings do not reserve a real calendar slot — needs Google Calendar / Cal.com integration.</li>
+              </ul>
+            )
+          },
+          {
+            id: 'cost-snapshot',
+            title: 'Cost Snapshot (at Launch)',
+            content: (
+              <>
+                <div className="overflow-x-auto mt-4">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr>
+                        <th className="p-4 border-b border-[var(--card-border)] font-semibold">Resource</th>
+                        <th className="p-4 border-b border-[var(--card-border)] font-semibold">Free Tier / Cost</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="p-4 border-b border-[var(--card-border)]">Meta Cloud API</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">1,000 free conversations/month</td>
+                      </tr>
+                      <tr>
+                        <td className="p-4 border-b border-[var(--card-border)]">AWS Lambda</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">1M invocations/month free — effectively $0 at clinic scale</td>
+                      </tr>
+                      <tr>
+                        <td className="p-4 border-b border-[var(--card-border)]">Neon PostgreSQL</td>
+                        <td className="p-4 border-b border-[var(--card-border)] text-[var(--text-secondary)]">0.5 GB storage · 190 compute hours/month free</td>
+                      </tr>
+                      <tr>
+                        <td className="p-4 border-b border-[var(--card-border)] font-semibold">Total monthly infra cost</td>
+                        <td className="p-4 border-b border-[var(--card-border)] font-semibold text-[var(--text-secondary)]">~$0</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p className="mt-4 p-4 border border-[var(--card-border)] rounded-md text-[var(--text-secondary)]">
+                  The zero-cost serverless architecture was a deliberate design goal — the clinic should incur no infra bill until message volume exceeds the free tiers by an order of magnitude.
+                </p>
+              </>
+            )
+          }
+        ]
+      }
+    ]
   },
   documiner: {
     id: 'documiner',

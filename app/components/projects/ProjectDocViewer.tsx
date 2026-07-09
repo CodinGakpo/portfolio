@@ -111,9 +111,9 @@ export default function ProjectDocViewer({ project }: { project: ProjectDoc }) {
 
         {/* Tab Navigation */}
         <div className="flex flex-wrap gap-2 mb-12 border-b border-[var(--doc-border)] pb-4">
-          {project.tabs.map((tab) => (
+          {project.tabs.map((tab, idx) => (
             <button
-              key={tab.id}
+              key={`tab-${tab.id}-${idx}`}
               onClick={() => setActiveTabId(tab.id)}
               className="px-5 py-2.5 rounded-full text-sm font-medium transition-all"
               style={{
@@ -161,11 +161,11 @@ export default function ProjectDocViewer({ project }: { project: ProjectDoc }) {
                 </div>
                 
                 <nav className="space-y-1">
-                  {activeTab.sections.map((section) => {
+                  {activeTab.sections.map((section, idx) => {
                     const isActive = activeSectionId === section.id;
                     return (
                       <a
-                        key={section.id}
+                        key={`nav-${section.id}-${idx}`}
                         href={`#${section.id}`}
                         onClick={(e) => scrollToSection(e, section.id)}
                         className="block px-3 py-2 text-sm rounded-lg transition-all"
@@ -201,8 +201,8 @@ export default function ProjectDocViewer({ project }: { project: ProjectDoc }) {
 
             {/* Sections */}
             <div className="space-y-16">
-              {activeTab.sections.map((section) => (
-                <section key={section.id} id={section.id} className="scroll-mt-32">
+              {activeTab.sections.map((section, idx) => (
+                <section key={`section-${section.id}-${idx}`} id={section.id} className="scroll-mt-32">
                   <h3 className="text-2xl font-bold mb-6" style={{ color: 'var(--doc-heading)' }}>
                     {section.title}
                   </h3>
