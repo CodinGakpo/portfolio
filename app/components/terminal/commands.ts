@@ -69,7 +69,7 @@ const COMMANDS: Command[] = [
         divider(),
         line('  OPEN', 'success'),
         line('  open github    →  github.com/CodinGakpo', 'output'),
-        line('  open linkedin  →  linkedin.com/in/adidev-anand', 'output'),
+        line('  open linkedin  →  https://www.linkedin.com/in/adidevanand/', 'output'),
         line('  open resume    →  open resume PDF', 'output'),
         divider(),
         line('  ASK (powered by Gemini)', 'success'),

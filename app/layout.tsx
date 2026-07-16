@@ -106,7 +106,7 @@ export default function RootLayout({
               jobTitle: "Full Stack Developer",
               sameAs: [
                 "https://github.com/CodinGakpo",
-                "https://linkedin.com/in/adidev-anand",
+                "https://www.linkedin.com/in/adidevanand/",
               ],
               description:
                 "Final-year Information Security student at VIT Vellore. Full-stack systems, AWS cloud architecture, and production-grade applications.",
