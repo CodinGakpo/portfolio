@@ -262,7 +262,7 @@ const CubeOverlay = () => {
       {/* credit */}
       <div className={styles.credit}>
         <a
-          href="https://linkedin.com/in/adidev-anand"
+          href="https://www.linkedin.com/in/adidevanand/"
           target="_blank"
           rel="noopener noreferrer"
         >

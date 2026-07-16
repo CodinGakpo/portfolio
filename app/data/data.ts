@@ -298,7 +298,7 @@ export const contactData = {
   links: {
     email: 'anandadidev43@gmail.com',
     github: 'https://github.com/CodinGakpo',
-    linkedin: 'https://linkedin.com/in/adidev-anand',
+    linkedin: 'https://www.linkedin.com/in/adidevanand/',
   },
   cta: {
     label: 'Email Me',
