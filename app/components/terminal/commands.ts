@@ -1,7 +1,8 @@
 // ─── Command Registry ─────────────────────────────────────────────────────────
 // Phase 1: help/man, clear
 // Phase 2: all content commands (whoami, ls, cat, cd, open, skills, history)
-// Phase 3: ask (Gemini LLM)
+// Phase 3: any input that isn't a recognized command is treated as a question
+// to Adidev's AI twin (see askCommand.ts's setFallbackHandler)
 
 import { v4 as uuid } from 'uuid';
 import type { Command, PushFn, TerminalLine, ExecOptions } from './types';
@@ -72,9 +73,9 @@ const COMMANDS: Command[] = [
         line('  open linkedin  →  https://www.linkedin.com/in/adidevanand/', 'output'),
         line('  open resume    →  open resume PDF', 'output'),
         divider(),
-        line('  ASK (powered by Gemini)', 'success'),
-        line('  ask <question> →  talk to Adidev\'s AI twin', 'output'),
-        line('  e.g.  ask why should I hire you?', 'info'),
+        line('  ASK', 'success'),
+        line('  Just type your question directly — no command needed', 'output'),
+        line('  e.g.  why should I hire you?', 'info'),
         divider(),
         line('  UTILITY', 'success'),
         line('  history        →  show command history', 'output'),
@@ -117,8 +118,18 @@ registerAll(COMMANDS);
 
 export const registerCommands = (cmds: Command[]) => registerAll(cmds);
 
-// ─── Public: execute a raw input string ───────────────────────────────────────
+// ─── Public: register the fallback handler for unrecognized input ─────────────
+// Any input that doesn't match a known command name/alias is treated as a
+// freeform question to Adidev's AI twin, handled by askCommand.ts.
 
+type FallbackHandler = (question: string, push: PushFn) => void | Promise<void>;
+let fallbackHandler: FallbackHandler | null = null;
+
+export const setFallbackHandler = (fn: FallbackHandler) => {
+  fallbackHandler = fn;
+};
+
+// ─── Public: execute a raw input string ───────────────────────────────────────
 
 export const execute = async (
   raw: string,
@@ -136,6 +147,10 @@ export const execute = async (
   const cmd = registry.get(name.toLowerCase());
 
   if (!cmd) {
+    if (fallbackHandler) {
+      await fallbackHandler(trimmed, push);
+      return;
+    }
     push(line(
       `command not found: ${name}. Type 'help' to see available commands.`,
       'error'
