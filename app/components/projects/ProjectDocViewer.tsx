@@ -272,6 +272,11 @@ export default function ProjectDocViewer({ project }: { project: ProjectDoc }) {
                   Docs at: {project.githubUrl}
                 </a>
               )}
+              {project.externalLinks?.map((link) => (
+                <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" className="text-sm font-mono flex items-center gap-2 hover:text-white transition-colors" style={{ color: 'var(--doc-accent)' }}>
+                  {link.label}
+                </a>
+              ))}
             </div>
 
           </div>

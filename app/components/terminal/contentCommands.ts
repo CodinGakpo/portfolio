@@ -127,7 +127,7 @@ const CONTENT_COMMANDS: Command[] = [
             'success'
           ),
           divider(),
-          line('  Tip: try  ls projects/  or  cat projects/reportmitra', 'info'),
+          line('  Tip: try  ls projects/  or  cat projects/jan-saathi', 'info'),
           divider(),
         ]);
         return;

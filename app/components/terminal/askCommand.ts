@@ -1,82 +1,65 @@
-// ─── Phase 3: `ask` command — Gemini-powered AI twin ─────────────────────────
-// Streams the response from /api/chat, buffers the full text,
+// ─── Phase 3: default fallback — freeform questions to Adidev's AI twin ──────
+// Any terminal input that isn't a recognized command is routed here instead
+// of erroring. Streams the response from /api/chat, buffers the full text,
 // then pushes it to the terminal as formatted lines.
 
-import { registerCommands, line, divider } from './commands';
-import type { Command } from './types';
+import { setFallbackHandler, line, divider } from './commands';
+import type { PushFn } from './types';
 
-const ASK_COMMANDS: Command[] = [
-  {
-    name: 'ask',
-    aliases: ['query', 'ai'],
-    description: "Ask Adidev's AI twin anything about him",
-    usage: 'ask <question>',
-    handler: async (args, push) => {
-      const question = args.join(' ').trim();
+const askAdidevAI = async (question: string, push: PushFn): Promise<void> => {
+  // Show a "thinking" indicator while waiting
+  push([
+    divider(),
+    line('  Adidev[AI] ▸ receiving response...', 'info'),
+  ]);
 
-      if (!question) {
-        push([
-          line('  ask: missing question.', 'error'),
-          line('  e.g.  ask why should I hire you?', 'info'),
-        ]);
-        return;
-      }
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question }),
+    });
 
-      // Show a "thinking" indicator while waiting
+    if (!res.ok || !res.body) {
+      const errText = await res.text().catch(() => res.statusText);
       push([
+        line(`  Error ${res.status}: ${errText}`, 'error'),
         divider(),
-        line('  Adidev[AI] ▸ receiving response...', 'info'),
       ]);
+      return;
+    }
 
-      try {
-        const res = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ question }),
-        });
+    // Read the full response
+    const full = await res.text();
 
-        if (!res.ok || !res.body) {
-          const errText = await res.text().catch(() => res.statusText);
-          push([
-            line(`  Error ${res.status}: ${errText}`, 'error'),
-            divider(),
-          ]);
-          return;
-        }
+    const trimmed = full.trim();
+    if (!trimmed) {
+      push([line('  (no response)', 'error'), divider()]);
+      return;
+    }
 
-        // Read the full response
-        const full = await res.text();
+    // Split response into paragraphs — blank lines become dividers
+    const paragraphs = trimmed.split(/\n\n+/);
+    const outputLines = paragraphs.flatMap((para) => {
+      const innerLines = para.split('\n').map(l => line(`  ${l}`, 'output'));
+      return [...innerLines, line('', 'output')];
+    });
 
-        const trimmed = full.trim();
-        if (!trimmed) {
-          push([line('  (no response)', 'error'), divider()]);
-          return;
-        }
+    push([
+      line('  Adidev[AI] ▸', 'success'),
+      ...outputLines,
+      divider(),
+    ]);
 
-        // Split response into paragraphs — blank lines become dividers
-        const paragraphs = trimmed.split(/\n\n+/);
-        const outputLines = paragraphs.flatMap((para) => {
-          const innerLines = para.split('\n').map(l => line(`  ${l}`, 'output'));
-          return [...innerLines, line('', 'output')];
-        });
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    push([
+      line(`  Network error: ${msg}`, 'error'),
+      line(`  Are the Bedrock AWS credentials set in .env.local (BEDROCK_AWS_REGION / BEDROCK_AWS_ACCESS_KEY / BEDROCK_AWS_SECRET_KEY)?`, 'info'),
+      divider(),
+    ]);
+  }
+};
 
-        push([
-          line('  Adidev[AI] ▸', 'success'),
-          ...outputLines,
-          divider(),
-        ]);
-
-      } catch (err: unknown) {
-        const msg = err instanceof Error ? err.message : 'Unknown error';
-        push([
-          line(`  Network error: ${msg}`, 'error'),
-          line(`  Is GEMINI_API_KEY set in .env.local?`, 'info'),
-          divider(),
-        ]);
-      }
-    },
-  },
-];
-
-registerCommands(ASK_COMMANDS);
+setFallbackHandler(askAdidevAI);
 export {};

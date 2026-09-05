@@ -7,14 +7,14 @@ import type { TerminalLine } from './types';
 
 // Phase 2 commands — imported for side-effect (auto-registers on load)
 import './contentCommands';
-// Phase 3: ask (Gemini LLM)
+// Phase 3: registers the fallback handler for freeform AI questions
 import './askCommand';
 
 // ─── Boot message ─────────────────────────────────────────────────────────────
 
 const BOOT_LINES: TerminalLine[] = [
   { id: uuid(), type: 'success', content: '  Welcome to adidev@portfolio — interactive terminal' },
-  { id: uuid(), type: 'info',    content: '  Type  help  to explore all commands.' },
+  { id: uuid(), type: 'info',    content: '  Type  help  to explore all commands, or just type a question.' },
   { id: uuid(), type: 'info',    content: '  Press  Ctrl+`  or  Esc  to close.' },
   { id: uuid(), type: 'divider', content: '' },
 ];
@@ -344,7 +344,7 @@ const Terminal = ({ isOpen, onClose, onToggle }: TerminalProps) => {
                 spellCheck={false}
                 autoComplete="off"
                 autoCapitalize="off"
-                placeholder="type a command..."
+                placeholder="type a command, or just ask a question..."
                 aria-label="Terminal input"
               />
             </div>
