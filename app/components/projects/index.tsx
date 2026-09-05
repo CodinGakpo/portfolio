@@ -43,9 +43,14 @@ const ProjectCard = ({ project }: { project: Project }) => {
     });
   };
 
-  const isPatent = project.statusTone === 'patent';
-  const badgeDotClass = isPatent ? 'bg-amber-400' : 'bg-green-400';
-  const badgeTextColor = isPatent ? '#fbbf24' : '#4ade80';
+  const badgeDotClass =
+    project.statusTone === 'patent' ? 'bg-amber-400' :
+    project.statusTone === 'oss' ? 'bg-sky-400' :
+    'bg-green-400';
+  const badgeTextColor =
+    project.statusTone === 'patent' ? '#fbbf24' :
+    project.statusTone === 'oss' ? '#38bdf8' :
+    '#4ade80';
 
   return (
     <div

@@ -40,21 +40,26 @@ Auth & Identity: Aadhaar/DigiLocker via Setu.co, OTP-first flows, OIDC federatio
 
 PROJECTS:
 
-1. ReportMitra — AI Civic Issue Reporting Platform
-Django + React stack. Production AWS deployment built from scratch: EC2, RDS, S3, CloudFront, Route53, ACM. IAM OIDC federation for keyless GitHub Actions CI/CD. CNN model (Keras) classifies civic issues by department. Celery/Redis async pipeline. Blockchain audit trail on Ethereum Sepolia testnet. Real-time geo-mapping via Leaflet.
+1. Jan Saathi — AI-Routed Civic Complaint Platform (formerly ReportMitra)
+A civic-complaint pipeline: a citizen files a report, AI clusters it with nearby same-category issues via haversine geo-matching and auto-routes the cluster to the least-workload supervisor — no human dispatcher in the loop. Grew from a single reporting app into 4 independently-deployed services: two Flutter apps (JanSaathi for citizens, JanKarta for supervisors and field workers) and two React websites (an admin console and a public info site), coordinating purely through shared Postgres tables with no message broker. Go (Gin) backends, AWS RDS Postgres, AWS Bedrock (Nova Pro) multi-agent AI pipeline for image/text tagging, Aadhaar/DigiLocker identity via Setu alongside phone-OTP, self-healing SLA watchdog that auto-escalates and auto-reroutes stalled clusters. Built around 225 real BBMP (Bengaluru) civic ward polygons for real point-in-polygon routing.
 Won DevSoc'26 (CodeChef) Tech for Good track — 150+ participants.
-Status: Live on AWS.
+Status: Live in staging at jansaathi.co.in (public site) and console.jansaathi.co.in (admin console); both apps distributed as direct-download APKs.
 
-2. JanSaathi — Scalable Civic Reporting Platform (evolved from ReportMitra)
-Re-architected version of the civic reporting concept, rebuilt for scale. Backend migrated from Django to Go (Gin) for performance. Introduces clustering logic to group similar civic complaints before routing — reducing duplicate reports and improving response efficiency. Aadhaar/DigiLocker auth via Setu.co with OTP-first login and UUID-primary-key citizen schema. Vite/React frontend with a green-white civic design system. Multi-service Docker Compose stack.
+2. Mark-1 — Confidential Compute Sandbox for Untrusted / AI-Generated Code
+Lets untrusted or AI-generated code run against private data in the cloud and return only a small, cryptographically-attested answer, bounding the exfiltration channel to a few bits instead of trying to detect leaks after the fact — grounded in Lampson's 1973 confinement problem. Zero-egress AWS Fargate sandbox, schema-bounded exit gate, cumulative per-principal bit budget, KMS-backed signed attestations, multi-party "clean room" mode for separate data-owner/code-provider principals. Proven by a hostile test suite that actively tries to defeat the guarantee, verified end-to-end on real AWS.
+Status: Self-hosted, deploy-into-your-own-AWS-account tool (no public live URL by design).
 
-3. DocuMiner — AI Enterprise Document Security Analyzer
+3. ShieldStream — Distributed API Security Gateway with Real-Time Threat Detection
+A reverse proxy with atomic Redis-backed sliding-window rate limiting, two-tier real-time threat detection (OWASP signatures + from-scratch statistical anomaly scoring), and a live WebSocket operator dashboard. FastAPI, Redis (Lua scripting, Streams, Pub/Sub), PostgreSQL + TimescaleDB with Row-Level Security, Next.js dashboard, full observability stack (Prometheus/Grafana/Jaeger). Chaos-tested fail-open design and load-tested at 1,000 concurrent users.
+Status: Feature-complete, solo project, deployment runbook written but not yet executed against production infrastructure.
+
+4. DocuMiner — AI Enterprise Document Security Analyzer
 Multi-stage agentic pipeline using LangChain + OpenAI API. Detects PII and extracts IAM policy violations from enterprise documents. Supports PDF, Excel, PowerPoint, and images via Tesseract OCR. Zero-shot classification. Unified FastAPI REST interface. Co-authored as B.Tech capstone — filed as a patent disclosure through VIT's IPR process.
 
-4. Vatavaran — Edge AI Climate Prediction System
+5. Vatavaran — Edge AI Climate Prediction System
 LSTM-based climate prediction model deployed on Raspberry Pi hardware. NLP command parser for natural language queries. Built for EQUINOX 2026 and other hackathon presentations. Demonstrates edge AI and embedded systems capability.
 
-5. DrDeepti — Real-time Patient Appointment System
+6. DrDeepti — Real-time Patient Appointment System
 Live clinic booking platform with real-time slot conflict prevention. Admin dashboard for daily capacity and operations management. Backend on Render, frontend on Vercel. Has real users at an active clinic.
 Live at: drdeeptientdelhi.in
 
