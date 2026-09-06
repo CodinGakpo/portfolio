@@ -148,7 +148,7 @@ export const projectsData: Project[] = [
     statusBadge: 'Staging · Live Domains',
     statusTone: 'live',
     liveUrl: 'https://jansaathi.co.in',
-    githubUrl: '#',
+    githubUrl: 'https://github.com/dibyajyoti-chakrabarti/jan-saathi',
     image: '/projects/jan-saathi.png',
     highlights: [
       'AI clusters same-category reports within 15m via haversine geo-matching and auto-routes each cluster to the least-workload supervisor covering that department and ward — zero human dispatcher',
