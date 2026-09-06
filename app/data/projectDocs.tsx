@@ -551,6 +551,7 @@ export const projectDocs: Record<string, ProjectDoc> = {
     version: 'Staging · 4-Service Platform',
     versionSummary: 'Evolved from a single-service civic reporting app into a 4-service platform — 2 Flutter apps (JanSaathi for citizens, JanKarta for supervisors and field workers) + 2 React websites (admin console, public info site) — live on real AWS infrastructure and real domains in staging.',
     liveUrl: 'https://jansaathi.co.in',
+    githubUrl: 'https://github.com/dibyajyoti-chakrabarti/jan-saathi',
     tabs: [
       {
         id: 'overview',
