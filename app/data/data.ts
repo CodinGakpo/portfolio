@@ -178,15 +178,15 @@ export const projectsData: Project[] = [
     ],
   },
   {
-    id: 'mark-1',
-    title: 'Mark-1',
+    id: 'keyhole',
+    title: 'KeyHole',
     subtitle: 'Confidential Compute Sandbox for Untrusted / AI-Generated Code',
     oneLiner:
       'Lets untrusted or AI-generated code run against private data in the cloud and return only a small, cryptographically-attested answer — bounding the exfiltration channel to a few bits instead of trying to detect leaks after the fact.',
     statusBadge: 'Feature-Complete · Self-Hosted',
     statusTone: 'oss',
     githubUrl: 'https://github.com/CodinGakpo/KeyHole',
-    image: '/projects/mark-1.png',
+    image: '/projects/keyhole.png',
     highlights: [
       'Zero-egress AWS Fargate sandbox with a schema-bounded exit gate and a cumulative per-principal bit budget, so bulk AND slow-drip exfiltration are both structurally capped, not just filtered',
       'KMS-backed signed attestations (ed25519 locally, ECDSA/KMS in the cloud) that prove exactly what ran, on what data, with zero egress — independently verifiable, not just logged',

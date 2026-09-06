@@ -45,7 +45,7 @@ A civic-complaint pipeline: a citizen files a report, AI clusters it with nearby
 Won DevSoc'26 (CodeChef) Tech for Good track — 150+ participants.
 Status: Live in staging at jansaathi.co.in (public site) and console.jansaathi.co.in (admin console); both apps distributed as direct-download APKs.
 
-2. Mark-1 — Confidential Compute Sandbox for Untrusted / AI-Generated Code
+2. KeyHole — Confidential Compute Sandbox for Untrusted / AI-Generated Code
 Lets untrusted or AI-generated code run against private data in the cloud and return only a small, cryptographically-attested answer, bounding the exfiltration channel to a few bits instead of trying to detect leaks after the fact — grounded in Lampson's 1973 confinement problem. Zero-egress AWS Fargate sandbox, schema-bounded exit gate, cumulative per-principal bit budget, KMS-backed signed attestations, multi-party "clean room" mode for separate data-owner/code-provider principals. Proven by a hostile test suite that actively tries to defeat the guarantee, verified end-to-end on real AWS.
 Status: Self-hosted, deploy-into-your-own-AWS-account tool (no public live URL by design).
 

@@ -23,7 +23,7 @@ const ProjectSlide = ({ project, stacked = false }: ProjectSlideProps) => {
       className={
         stacked
           ? 'glass-card overflow-hidden'
-          : 'glass-card rounded-3xl p-8 md:p-12 max-w-5xl w-full mx-6'
+          : 'glass-card rounded-3xl p-8 md:p-12 w-[90vw] max-w-[1600px]'
       }
     >
       <div
