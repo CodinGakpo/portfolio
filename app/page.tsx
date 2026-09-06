@@ -8,8 +8,9 @@ import Navbar from './components/common/Navbar';
 import Hero from './components/hero';
 import About from './components/about';
 import Skills from './components/skills';
-import Projects from './components/projects';
+import Experience from './components/experience';
 import Achievements from './components/achievements';
+import Projects from './components/projects';
 import Resume from './components/resume';
 import Contact from './components/contact';
 import { siteConfig } from './data/data';
@@ -31,9 +32,10 @@ const Home = () => {
       <Navbar />
       <main>
         <Hero />
-        <Achievements />
         <About />
         <Skills />
+        <Experience />
+        <Achievements />
         <Projects />
         <Resume />
         <Contact />

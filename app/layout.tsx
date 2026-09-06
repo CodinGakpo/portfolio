@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import FluidCursorTrailWrapper from "./components/common/FluidCursorTrailWrapper";
 import TerminalController from "./components/common/TerminalController";
@@ -7,6 +8,18 @@ import TerminalController from "./components/common/TerminalController";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+const soria = localFont({
+  src: "./fonts/soria-font.ttf",
+  variable: "--font-soria",
+  display: "swap",
+});
+
+const vercetti = localFont({
+  src: "./fonts/Vercetti-Regular.woff",
+  variable: "--font-vercetti",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -90,7 +103,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth">
       <body
-        className={`${inter.variable} font-sans antialiased bg-[#0a0a0a] text-[#ededed]`}
+        className={`${inter.variable} ${soria.variable} ${vercetti.variable} antialiased bg-[#0a0a0a] text-[#ededed]`}
       >
         {children}
         <FluidCursorTrailWrapper />

@@ -39,7 +39,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link
           href="/"
-          className="text-lg font-bold tracking-tight hover:opacity-80 transition-opacity flex items-center gap-2"
+          className="text-lg font-bold font-accent tracking-tight hover:opacity-80 transition-opacity flex items-center gap-2"
         >
           <Home className="w-5 h-5 text-emerald-400" />
           {heroData.name.split(' ')[0]}
