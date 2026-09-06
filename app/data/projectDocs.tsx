@@ -703,9 +703,9 @@ export const projectDocs: Record<string, ProjectDoc> = {
       },
     ],
   },
-  'mark-1': {
-    id: 'mark-1',
-    title: 'Mark-1',
+  keyhole: {
+    id: 'keyhole',
+    title: 'KeyHole',
     subtitle: 'Confidential Compute Sandbox for Untrusted / AI-Generated Code',
     oneLiner: 'Lets untrusted or AI-generated code run against private data in the cloud and return only a small, cryptographically-attested answer — the data is structurally incapable of leaking out, not just scanned for leaks.',
     version: 'Milestones M0–M9',
@@ -721,18 +721,18 @@ export const projectDocs: Record<string, ProjectDoc> = {
         id: 'overview',
         label: 'Overview',
         documentTitle: 'Product Overview',
-        documentDescription: 'What Mark-1 is, the confinement problem it targets, and who it is for.',
+        documentDescription: 'What KeyHole is, the confinement problem it targets, and who it is for.',
         sections: [
           {
-            id: 'what-is-mark-1',
-            title: 'What is Mark-1?',
+            id: 'what-is-keyhole',
+            title: 'What is KeyHole?',
             content: (
               <>
                 <p>
                   Sandboxes like E2B, Modal, and AWS AgentCore are isolation-first: they stop code from escaping the box and touching the host, but they do nothing to stop code that legitimately has access to your data from leaking it back out — writing it to an open socket, encoding it in the output, and so on.
                 </p>
                 <p>
-                  Mark-1 (repo name <code>KeyHole</code>) flips the problem. Instead of trying to detect exfiltration — which encryption or steganography can always defeat — it bounds the <strong>channel capacity</strong> of the code&apos;s only way out. It&apos;s for developers and teams who want to let an AI agent or third-party script operate on sensitive data (support tickets, customer records, internal documents) without having to trust that the code won&apos;t exfiltrate it.
+                  KeyHole flips the problem. Instead of trying to detect exfiltration — which encryption or steganography can always defeat — it bounds the <strong>channel capacity</strong> of the code&apos;s only way out. It&apos;s for developers and teams who want to let an AI agent or third-party script operate on sensitive data (support tickets, customer records, internal documents) without having to trust that the code won&apos;t exfiltrate it.
                 </p>
               </>
             ),

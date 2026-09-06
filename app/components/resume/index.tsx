@@ -81,7 +81,7 @@ const Resume = () => {
           </div>
 
           {/* Stat strip */}
-          <div className="flex flex-wrap gap-2 mb-5">
+          <div className="flex flex-wrap gap-2">
             {aboutData.stats.map((stat, i) => (
               <span
                 key={i}
@@ -95,25 +95,6 @@ const Resume = () => {
                 {stat.value} {stat.label}
               </span>
             ))}
-          </div>
-
-          {/* Terminal-chrome file viewer frame */}
-          <div className="rounded-xl overflow-hidden border border-white/10 bg-black/20">
-            <div className="terminal-titlebar" style={{ cursor: 'default' }}>
-              <div className="terminal-traffic-lights">
-                <span className="terminal-light terminal-light--red" style={{ cursor: 'default' }} />
-                <span className="terminal-light terminal-light--yellow" />
-                <span className="terminal-light terminal-light--green" />
-              </div>
-              <span className="terminal-titlebar-label">
-                {resumeData.fileName}
-              </span>
-            </div>
-            <iframe
-              title="Adidev Anand Resume"
-              src={resumeData.fileUrl}
-              className="w-full h-[70vh] min-h-[520px]"
-            />
           </div>
         </div>
       </div>
