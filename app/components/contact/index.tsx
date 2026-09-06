@@ -46,7 +46,7 @@ const Contact = () => {
           <div className="contact-content" style={{ opacity: 0 }}>
             <div className="section-line mx-auto" />
             <p className="terminal-prompt font-mono text-sm mb-4">$ contact --initiate</p>
-            <h2 className="text-4xl md:text-5xl font-bold font-display mb-4">{contactData.heading}</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">{contactData.heading}</h2>
             <p className="text-base md:text-lg mb-12" style={{ color: 'var(--text-secondary)' }}>
               {contactData.subtext}
             </p>

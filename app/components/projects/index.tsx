@@ -55,8 +55,8 @@ const Projects = () => {
             const idx = Math.round(self.progress * (n - 1));
             slides.forEach((slide, i) => {
               gsap.to(slide, {
-                scale: i === idx ? 1 : 0.92,
-                opacity: i === idx ? 1 : 0.7,
+                scale: i === idx ? 1 : 0.96,
+                opacity: i === idx ? 1 : 0.85,
                 duration: 0.3,
                 overwrite: 'auto',
               });
@@ -82,7 +82,7 @@ const Projects = () => {
       <div className="relative z-10 max-w-6xl mx-auto px-6 mb-14">
         <div className="projects-heading" style={{ opacity: 0 }}>
           <div className="section-line" />
-          <h2 className="text-3xl md:text-4xl font-bold font-display">Projects</h2>
+          <h2 className="text-3xl md:text-4xl font-bold">Projects</h2>
         </div>
       </div>
 

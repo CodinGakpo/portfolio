@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { resumeData, aboutData, certifications } from '../../data/data';
+import { resumeData, aboutData } from '../../data/data';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,7 +45,7 @@ const Resume = () => {
       <div className="relative z-10 max-w-6xl mx-auto">
         <div className="resume-heading mb-10" style={{ opacity: 0 }}>
           <div className="section-line" />
-          <h2 className="text-3xl md:text-4xl font-bold font-display">{resumeData.heading}</h2>
+          <h2 className="text-3xl md:text-4xl font-bold">{resumeData.heading}</h2>
         </div>
 
         <div className="resume-content glass-card p-5 md:p-7" style={{ opacity: 0 }}>
@@ -93,19 +93,6 @@ const Resume = () => {
                 }}
               >
                 {stat.value} {stat.label}
-              </span>
-            ))}
-            {certifications.map((cert, i) => (
-              <span
-                key={`cert-${i}`}
-                className="text-xs font-mono px-3 py-1.5 rounded-full"
-                style={{
-                  background: 'rgba(245, 158, 11, 0.08)',
-                  color: '#f59e0b',
-                  border: '1px solid rgba(245, 158, 11, 0.2)',
-                }}
-              >
-                {cert.code} Certified
               </span>
             ))}
           </div>

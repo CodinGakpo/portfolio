@@ -90,7 +90,7 @@ const About = () => {
       <div className="relative z-10 max-w-4xl mx-auto">
         <div className="about-heading mb-12" style={{ opacity: 0 }}>
           <div className="section-line" />
-          <h2 className="text-3xl md:text-4xl font-bold font-display">About</h2>
+          <h2 className="text-3xl md:text-4xl font-bold">About</h2>
         </div>
 
         <p
