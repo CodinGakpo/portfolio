@@ -149,6 +149,7 @@ export const projectsData: Project[] = [
     statusTone: 'live',
     liveUrl: 'https://jansaathi.co.in',
     githubUrl: '#',
+    image: '/projects/jan-saathi.png',
     highlights: [
       'AI clusters same-category reports within 15m via haversine geo-matching and auto-routes each cluster to the least-workload supervisor covering that department and ward — zero human dispatcher',
       'Self-healing SLA watchdog: unresolved clusters auto-escalate at 72h, un-acknowledged clusters auto-reroute to the next-best supervisor at 48h',
@@ -185,6 +186,7 @@ export const projectsData: Project[] = [
     statusBadge: 'Feature-Complete · Self-Hosted',
     statusTone: 'oss',
     githubUrl: 'https://github.com/CodinGakpo/KeyHole',
+    image: '/projects/mark-1.png',
     highlights: [
       'Zero-egress AWS Fargate sandbox with a schema-bounded exit gate and a cumulative per-principal bit budget, so bulk AND slow-drip exfiltration are both structurally capped, not just filtered',
       'KMS-backed signed attestations (ed25519 locally, ECDSA/KMS in the cloud) that prove exactly what ran, on what data, with zero egress — independently verifiable, not just logged',
@@ -221,6 +223,7 @@ export const projectsData: Project[] = [
     statusTone: 'live',
     liveUrl: 'https://drdeeptientdelhi.in',
     githubUrl: '#',
+    image: '/projects/drdeepti.png',
     highlights: [
       'Implemented real-time appointment slot booking with conflict prevention and live availability display',
       'Built an admin dashboard for staff operations, patient records, and daily capacity tracking',
@@ -247,6 +250,7 @@ export const projectsData: Project[] = [
     statusBadge: 'Feature-Complete · Solo Project',
     statusTone: 'oss',
     githubUrl: 'https://github.com/CodinGakpo/SheildStream',
+    image: '/projects/shieldstream.png',
     highlights: [
       'Atomic distributed rate limiting via a single Redis Lua script (check-then-act as one unit) — proven with 100 concurrent requests against a limit of 10, repeated 50x with zero flakiness',
       'Chaos-tested fail-open design: the Redis container is killed live under real traffic, and every request still returns 200 rather than 500ing or hanging',
@@ -280,6 +284,7 @@ export const projectsData: Project[] = [
     oneLiner:
       'Agentic zero-shot AI pipeline that analyzes enterprise documents (PDF, Excel, PPT, images) for security compliance violations.',
     githubUrl: 'https://github.com/CodinGakpo/DocuMiner',
+    image: '/projects/documiner.png',
     highlights: [
       'Automated PII detection, pseudonymization, and IAM policy extraction using LangChain + OpenAI API',
       'Added Tesseract OCR for image-based content extraction across multiple document formats through a unified REST API',

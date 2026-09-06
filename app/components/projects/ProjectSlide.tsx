@@ -30,8 +30,8 @@ const ProjectSlide = ({ project, stacked = false }: ProjectSlideProps) => {
       <div
         className={
           stacked
-            ? 'relative w-full aspect-[4/5]'
-            : 'relative w-full aspect-[4/5] max-h-[70vh] rounded-2xl overflow-hidden glass-card'
+            ? 'relative w-full aspect-[3/2]'
+            : 'relative w-full aspect-[3/2] max-h-[70vh] rounded-2xl overflow-hidden glass-card'
         }
       >
         {project.image ? (
