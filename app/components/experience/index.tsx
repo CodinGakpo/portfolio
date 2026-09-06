@@ -31,7 +31,7 @@ const Experience = () => {
       <div className="relative z-10 max-w-4xl mx-auto">
         <div className="experience-heading mb-14" style={{ opacity: 0 }}>
           <div className="section-line" />
-          <h2 className="text-3xl md:text-4xl font-bold font-display">Experience</h2>
+          <h2 className="text-3xl md:text-4xl font-bold">Experience</h2>
         </div>
 
         <div className="space-y-6">

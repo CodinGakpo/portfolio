@@ -24,7 +24,7 @@ const Hero = () => {
       <div className="relative z-10 max-w-5xl mx-auto w-full">
         <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10 md:gap-16 mb-12">
           <div className="flex-1 w-full text-center md:text-left">
-            <h1 ref={lineRef} className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold font-display tracking-tight" style={{ opacity: 0 }}>
+            <h1 ref={lineRef} className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight" style={{ opacity: 0 }}>
               Hi, I am Adidev.
             </h1>
           </div>
