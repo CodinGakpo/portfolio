@@ -153,7 +153,7 @@ const Skills = () => {
         {/* Heading */}
         <div className="skills-heading mb-14" style={{ opacity: 0 }}>
           <div className="section-line" />
-          <h2 className="text-3xl md:text-4xl font-bold">Tech Stack</h2>
+          <h2 className="text-3xl md:text-4xl font-bold font-display">Tech Stack</h2>
         </div>
 
         {/* Marquee */}

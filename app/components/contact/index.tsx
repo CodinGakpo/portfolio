@@ -29,66 +29,83 @@ const Contact = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="contact" className="py-28 px-6 noise-overlay">
-      <div className="relative z-10 max-w-3xl mx-auto text-center">
-        <div className="contact-content" style={{ opacity: 0 }}>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">{contactData.heading}</h2>
-          <p className="text-base md:text-lg mb-12" style={{ color: 'var(--text-secondary)' }}>
-            {contactData.subtext}
-          </p>
-        </div>
-
-        {/* Links */}
-        <div className="flex flex-col sm:flex-row justify-center gap-4 mb-10">
-          <a
-            href={`mailto:${contactData.links.email}`}
-            className="contact-link glass-card px-6 py-3 text-sm flex items-center justify-center gap-2 hover:border-purple-500/30 transition-all"
-            style={{ opacity: 0 }}
-          >
-            <Mail className="w-4 h-4 text-emerald-400" /> {contactData.links.email}
-          </a>
-          <a
-            href={contactData.links.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="contact-link glass-card px-6 py-3 text-sm flex items-center justify-center gap-2 hover:border-purple-500/30 transition-all"
-            style={{ opacity: 0 }}
-          >
-            <FiGithub className="w-4 h-4 text-emerald-400" /> GitHub
-          </a>
-          <a
-            href={contactData.links.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="contact-link glass-card px-6 py-3 text-sm flex items-center justify-center gap-2 hover:border-purple-500/30 transition-all"
-            style={{ opacity: 0 }}
-          >
-            <FiLinkedin className="w-4 h-4 text-emerald-400" /> LinkedIn
-          </a>
-        </div>
-
-        {/* CTA */}
-        <a
-          href={contactData.cta.href}
-          className="contact-link inline-flex items-center justify-center gap-2 px-10 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(139,92,246,0.3)]"
+    <>
+      <section
+        ref={sectionRef}
+        id="contact"
+        className="relative py-32 px-6 noise-overlay overflow-hidden"
+      >
+        <div
+          className="pointer-events-none absolute inset-0"
           style={{
-            background: 'linear-gradient(135deg, #8b5cf6, #6d28d9)',
-            color: '#fff',
-            opacity: 0,
+            background: 'radial-gradient(ellipse at 50% 30%, rgba(16, 185, 129, 0.12), transparent 60%)',
           }}
-        >
-          {contactData.cta.label}
-          <Send className="w-4 h-4" />
-        </a>
+        />
 
-        {/* Footer */}
-        <div className="mt-20 pt-8 border-t border-white/5">
-          <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
-            © {new Date().getFullYear()} Adidev Anand. Built with Next.js & GSAP.
-          </p>
+        <div className="relative z-10 max-w-3xl mx-auto text-center">
+          <div className="contact-content" style={{ opacity: 0 }}>
+            <div className="section-line mx-auto" />
+            <p className="terminal-prompt font-mono text-sm mb-4">$ contact --initiate</p>
+            <h2 className="text-4xl md:text-5xl font-bold font-display mb-4">{contactData.heading}</h2>
+            <p className="text-base md:text-lg mb-12" style={{ color: 'var(--text-secondary)' }}>
+              {contactData.subtext}
+            </p>
+          </div>
+
+          {/* Links */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+            <a
+              href={`mailto:${contactData.links.email}`}
+              className="contact-link glass-card p-6 flex flex-col items-center justify-center gap-2 hover:border-emerald-500/30 transition-all"
+              style={{ opacity: 0 }}
+            >
+              <Mail className="w-6 h-6 text-emerald-400" />
+              <span className="text-sm break-all">{contactData.links.email}</span>
+            </a>
+            <a
+              href={contactData.links.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-link glass-card p-6 flex flex-col items-center justify-center gap-2 hover:border-emerald-500/30 transition-all"
+              style={{ opacity: 0 }}
+            >
+              <FiGithub className="w-6 h-6 text-emerald-400" />
+              <span className="text-sm">GitHub</span>
+            </a>
+            <a
+              href={contactData.links.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-link glass-card p-6 flex flex-col items-center justify-center gap-2 hover:border-emerald-500/30 transition-all"
+              style={{ opacity: 0 }}
+            >
+              <FiLinkedin className="w-6 h-6 text-emerald-400" />
+              <span className="text-sm">LinkedIn</span>
+            </a>
+          </div>
+
+          {/* CTA */}
+          <a
+            href={contactData.cta.href}
+            className="contact-link inline-flex items-center justify-center gap-2 px-10 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(16,185,129,0.3)]"
+            style={{
+              background: 'linear-gradient(135deg, #10b981, #059669)',
+              color: '#fff',
+              opacity: 0,
+            }}
+          >
+            {contactData.cta.label}
+            <Send className="w-4 h-4" />
+          </a>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <footer className="px-6 py-8 border-t border-white/5">
+        <p className="text-xs text-center" style={{ color: 'var(--text-muted)' }}>
+          © {new Date().getFullYear()} Adidev Anand. Built with Next.js & GSAP.
+        </p>
+      </footer>
+    </>
   );
 };
 

@@ -5,8 +5,8 @@
 :root {
   --background: #0a0a0a;
   --foreground: #ededed;
-  --accent: #6d28d9;
-  --accent-light: #8b5cf6;
+  --accent: #059669;
+  --accent-light: #34d399;
   --card-bg: rgba(255, 255, 255, 0.03);
   --card-border: rgba(255, 255, 255, 0.08);
   --card-hover: rgba(255, 255, 255, 0.06);
@@ -15,7 +15,6 @@
   --gold: #f59e0b;
   --silver: #94a3b8;
   --badge-blue: #3b82f6;
-  --badge-purple: #8b5cf6;
   --badge-gray: #6b7280;
   --terminal-green: #6ee7b7;
 }

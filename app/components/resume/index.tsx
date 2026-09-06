@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { resumeData } from '../../data/data';
+import { resumeData, aboutData, certifications } from '../../data/data';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,7 +45,7 @@ const Resume = () => {
       <div className="relative z-10 max-w-6xl mx-auto">
         <div className="resume-heading mb-10" style={{ opacity: 0 }}>
           <div className="section-line" />
-          <h2 className="text-3xl md:text-4xl font-bold">{resumeData.heading}</h2>
+          <h2 className="text-3xl md:text-4xl font-bold font-display">{resumeData.heading}</h2>
         </div>
 
         <div className="resume-content glass-card p-5 md:p-7" style={{ opacity: 0 }}>
@@ -71,7 +71,7 @@ const Resume = () => {
                 download={resumeData.fileName}
                 className="text-xs px-4 py-2 rounded-full transition-all duration-200 hover:scale-105"
                 style={{
-                  background: 'linear-gradient(135deg, #8b5cf6, #6d28d9)',
+                  background: 'linear-gradient(135deg, #10b981, #059669)',
                   color: '#fff',
                 }}
               >
@@ -80,7 +80,48 @@ const Resume = () => {
             </div>
           </div>
 
+          {/* Stat strip */}
+          <div className="flex flex-wrap gap-2 mb-5">
+            {aboutData.stats.map((stat, i) => (
+              <span
+                key={i}
+                className="text-xs font-mono px-3 py-1.5 rounded-full"
+                style={{
+                  background: 'rgba(16, 185, 129, 0.08)',
+                  color: '#34d399',
+                  border: '1px solid rgba(16, 185, 129, 0.2)',
+                }}
+              >
+                {stat.value} {stat.label}
+              </span>
+            ))}
+            {certifications.map((cert, i) => (
+              <span
+                key={`cert-${i}`}
+                className="text-xs font-mono px-3 py-1.5 rounded-full"
+                style={{
+                  background: 'rgba(245, 158, 11, 0.08)',
+                  color: '#f59e0b',
+                  border: '1px solid rgba(245, 158, 11, 0.2)',
+                }}
+              >
+                {cert.code} Certified
+              </span>
+            ))}
+          </div>
+
+          {/* Terminal-chrome file viewer frame */}
           <div className="rounded-xl overflow-hidden border border-white/10 bg-black/20">
+            <div className="terminal-titlebar" style={{ cursor: 'default' }}>
+              <div className="terminal-traffic-lights">
+                <span className="terminal-light terminal-light--red" style={{ cursor: 'default' }} />
+                <span className="terminal-light terminal-light--yellow" />
+                <span className="terminal-light terminal-light--green" />
+              </div>
+              <span className="terminal-titlebar-label">
+                {resumeData.fileName}
+              </span>
+            </div>
             <iframe
               title="Adidev Anand Resume"
               src={resumeData.fileUrl}

@@ -131,6 +131,7 @@ export interface Project {
   statusTone?: 'live' | 'patent' | 'oss';
   liveUrl?: string;
   githubUrl: string;
+  image?: string;
   highlights: string[];
   techStack: string[];
   standout: string;
@@ -336,15 +337,30 @@ export const achievementsData: Achievement[] = [
     title: 'Rank 10 / 2000+ — Neo Codeathon, VIT Vellore',
     badgeColor: 'silver',
   },
+];
+
+// ─── Experience ──────────────────────────────────────────────────────────────
+
+export interface ExperienceEntry {
+  role: string;
+  org: string;
+  period: string;
+  summary: string;
+  highlights?: string[];
+}
+
+export const experienceData: ExperienceEntry[] = [
   {
-    year: '2026',
-    title: 'Backend Engineering Intern — Aquevix Solutions',
-    badgeColor: 'gray',
+    role: 'Software Development Intern',
+    org: 'QNu Labs',
+    period: 'Aug 2026 – Present',
+    summary: 'Contributing to production software as part of the engineering team.',
   },
   {
-    year: '2023',
-    title: 'Joined VIT Vellore — B.Tech Information Security',
-    badgeColor: 'purple',
+    role: 'Backend Engineering Intern',
+    org: 'Aquevix Solutions',
+    period: '2024',
+    summary: 'Backend engineering work on production systems and APIs.',
   },
 ];
 
@@ -378,9 +394,10 @@ export const contactData = {
 // ─── Navigation ──────────────────────────────────────────────────────────────
 
 export const navLinks = [
-  { label: 'Achievements', href: '#achievements' },
   { label: 'About', href: '#about' },
   { label: 'Skills', href: '#skills' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Achievements', href: '#achievements' },
   { label: 'Projects', href: '#projects' },
   { label: 'Resume', href: '#resume' },
   { label: 'Contact', href: '#contact' },

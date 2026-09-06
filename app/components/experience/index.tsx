@@ -1,115 +1,70 @@
-import { Text, useScroll } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
-import { usePortalStore } from "@stores";
-import { useRef } from "react";
-import { isMobile } from "react-device-detect";
-import * as THREE from 'three';
-import GridTile from "./GridTile";
-import MyJourney from "./MyJourney";
-import Resume from "./Resume";
-import Work from "./work";
+'use client';
 
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { experienceData } from '../../data/data';
 
+gsap.registerPlugin(ScrollTrigger);
 
 const Experience = () => {
-  const titleRef = useRef<THREE.Group>(null);
-  const groupRef = useRef<THREE.Group>(null);
-  const data = useScroll();
-  const isActive = usePortalStore((state) => !!state.activePortalId);
+  const sectionRef = useRef<HTMLElement>(null);
 
-  const fontProps = {
-    font: "./soria-font.ttf",
-    fontSize: 0.5,
-    color: 'white',
-  };
-
-  useFrame((sate, delta) => {
-    const d = data.range(0.8, 0.2);
-    const e = data.range(0.7, 0.2);
-
-    if (groupRef.current && !isActive) {
-      const targetY = d > 0 ? (isMobile ? -1.4 : -1) : -30;
-      groupRef.current.position.y = targetY;
-      groupRef.current.visible = d > 0;
-    }
-
-    if (titleRef.current) {
-      titleRef.current.children.forEach((text, i) => {
-        const diffX = isMobile ? 0.4 : 0.8;
-        const diffY = isMobile ? 0.48 : 0.64;
-
-        // Phase 1: Diagonal fall
-        const fallProgress = Math.min(1, d / 0.7);
-        const yFall = Math.max(Math.min((1 - fallProgress) * (10 - i), 10), isMobile ? 1.0 : 0.5);
-
-        // Phase 2: Shift horizontal to vertical one by one
-        // Complete the animation by d=1.0. Total duration is 0.3.
-        // Stagger by 0.02 * 9 letters = 0.18. Individual duration = 0.12.
-        const shiftStart = 0.4 + i * 0.02;
-        const shiftProgress = Math.min(1, Math.max(0, (d - shiftStart) / 0.12));
-        const smoothEase = shiftProgress * shiftProgress * (3 - 2 * shiftProgress);
-
-        const finalX = -1; // used for desktop only
-        const finalY = isMobile ? 0.3 : -i * diffY;
-
-        const targetX = isMobile ? (i * diffX) : (i * diffX) * (1 - smoothEase) + finalX * smoothEase;
-        const targetY = yFall * (1 - smoothEase) + finalY * smoothEase;
-
-        text.position.x = THREE.MathUtils.damp(text.position.x, targetX, 7, delta);
-        text.position.y = THREE.MathUtils.damp(text.position.y, targetY, 7, delta);
-
-        /* eslint-disable  @typescript-eslint/no-explicit-any */
-        (text as any).fillOpacity = e;
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo('.experience-heading', { x: -40, opacity: 0 }, {
+        x: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' },
       });
-    }
-  });
 
-  const getTitle = () => {
-    const title = 'experience'.toUpperCase();
-    return title.split('').map((char, i) => {
-      const diffX = isMobile ? 0.4 : 0.8;
-      return (
-        <Text key={i} {...fontProps} position={[i * diffX, 10, 1]}>{char}</Text>
-      );
-    });
-  };
+      gsap.fromTo('.experience-card', { y: 50, opacity: 0 }, {
+        y: 0, opacity: 1, duration: 0.7, stagger: 0.15, ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 65%' },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <group position={[0, -41.5, 12]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]}>
-      {/* <mesh receiveShadow position={[-5, 0, 0.1]}>
-        <planeGeometry args={[10, 5, 1]} />
-        <shadowMaterial opacity={0.1} />
-      </mesh> */}
-      <group rotation={[0, 0, Math.PI / 2]}>
-        <group ref={titleRef} position={[isMobile ? -1.8 : -3.6, 2, -2]}>
-          {getTitle()}
-        </group>
+    <section ref={sectionRef} id="experience" className="py-28 px-6 noise-overlay">
+      <div className="relative z-10 max-w-4xl mx-auto">
+        <div className="experience-heading mb-14" style={{ opacity: 0 }}>
+          <div className="section-line" />
+          <h2 className="text-3xl md:text-4xl font-bold font-display">Experience</h2>
+        </div>
 
-        <group position={[0, -1, 0]} ref={groupRef}>
-          <GridTile title='WORK'
-            id="work"
-            color='#b9c6d6'
-            textAlign='left'
-            position={new THREE.Vector3(isMobile ? 0 : -1.6, isMobile ? 1.8 : 1.5, 0)}>
-            <Work />
-          </GridTile>
-          <GridTile title='MyJourney'
-            id="projects"
-            color='#bdd1e3'
-            textAlign='right'
-            position={new THREE.Vector3(isMobile ? 0 : 1.6, isMobile ? 0.6 : 1.5, 0)}>
-            <MyJourney />
-          </GridTile>
-          <GridTile title='RESUME'
-            id="resume"
-            color='#1a1a1a'
-            textAlign='left'
-            position={new THREE.Vector3(isMobile ? 0 : -1.6, isMobile ? -0.6 : -1.5, 0)}>
-            <Resume />
-          </GridTile>
-        </group>
-      </group>
-    </group>
+        <div className="space-y-6">
+          {experienceData.map((item, i) => (
+            <div key={i} className="experience-card glass-card p-5 md:p-6" style={{ opacity: 0 }}>
+              <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
+                <h3 className="text-lg md:text-xl font-bold">
+                  {item.role} <span style={{ color: 'var(--accent-light)' }}>· {item.org}</span>
+                </h3>
+                <span
+                  className="text-xs font-mono px-2 py-0.5 rounded-full whitespace-nowrap"
+                  style={{ background: 'rgba(16, 185, 129, 0.1)', color: '#34d399', border: '1px solid rgba(16, 185, 129, 0.25)' }}
+                >
+                  {item.period}
+                </span>
+              </div>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                {item.summary}
+              </p>
+              {item.highlights && item.highlights.length > 0 && (
+                <ul className="mt-3 space-y-1.5">
+                  {item.highlights.map((h, hi) => (
+                    <li key={hi} className="text-sm flex gap-2" style={{ color: 'var(--text-secondary)' }}>
+                      <span style={{ color: '#34d399' }}>→</span> {h}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 
