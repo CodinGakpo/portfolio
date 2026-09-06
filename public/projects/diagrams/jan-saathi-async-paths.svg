@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-label="Two asynchronous paths: report intake goes from the client Lambda by async invoke to the analysis worker and Bedrock, ending in a routed cluster; closure verification goes from the worker Lambda through an SQS queue that Terraform does not yet define, to the verifier, then back to a finalizer that resolves the cluster.">
+
+  <style><![CDATA[
+    /* Fonts carry real fallbacks: a standalone SVG referenced as an image
+       cannot fetch a webfont, so it renders in the fallback stack. */
+    svg {
+      color: #E4E8E1;
+      --surface: #0D1524;
+      --ink: #E4E8E1;
+      --ink-soft: #98A194;
+      --accent: #34D399;
+      --ai: #E0906A;
+      --gap: #CFAC55;
+      font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    }
+    .node     { fill: var(--surface); stroke: currentColor; stroke-width: 1.2; }
+    .zone     { fill: none; stroke: currentColor; stroke-width: 1; stroke-dasharray: 5 4; opacity: .55; }
+    .n-t      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 13px; font-weight: 600; fill: var(--ink); }
+    .n-s      { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; font-size: 10.5px; fill: var(--ink-soft); }
+    .z-t      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 10.5px; font-weight: 600; letter-spacing: .1em; fill: var(--ink-soft); }
+    .a-l      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 11px; fill: var(--ink-soft); }
+    .edge     { fill: none; stroke: currentColor; stroke-width: 1.3; opacity: .75; }
+    .edge-ai  { fill: none; stroke: var(--ai); stroke-width: 1.6; }
+    .ai-t     { fill: var(--ai); }
+    .node-ai  { fill: var(--surface); stroke: var(--ai); stroke-width: 1.6; }
+    .node-gap { fill: none; stroke: var(--gap); stroke-width: 1.6; stroke-dasharray: 6 4; }
+    .gap-t    { fill: var(--gap); }
+    .rail     { fill: var(--accent); }
+  ]]></style>
+
+          <defs>
+            <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+            </marker>
+            <marker id="ar2-ai" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--ai)"></path>
+            </marker>
+          </defs>
+
+          <text class="z-t" x="20" y="32">INTAKE · REPORT TO ROUTED CLUSTER</text>
+
+          <rect class="node" x="20" y="48" width="160" height="56"></rect>
+          <text class="n-t" x="34" y="72">Citizen files</text>
+          <text class="n-t" x="34" y="88">a report</text>
+
+          <rect class="node" x="240" y="48" width="160" height="56"></rect>
+          <rect class="rail" x="240" y="48" width="3" height="56"></rect>
+          <text class="n-t" x="254" y="72">client-api</text>
+          <text class="n-s" x="254" y="90">writes ai_status</text>
+
+          <rect class="node-ai" x="460" y="48" width="160" height="56"></rect>
+          <text class="n-t ai-t" x="474" y="72">analysis-worker</text>
+          <text class="n-s" x="474" y="90">classify · cluster</text>
+
+          <rect class="node-ai" x="680" y="48" width="160" height="56"></rect>
+          <text class="n-t ai-t" x="694" y="72">Bedrock</text>
+          <text class="n-s" x="694" y="90">Nova Pro</text>
+
+          <rect class="node" x="900" y="48" width="280" height="56"></rect>
+          <text class="n-t" x="914" y="72">clusters.status = pending</text>
+          <text class="n-s" x="914" y="90">or exception, when no scope matches</text>
+
+          <path class="edge" marker-end="url(#ar2)" d="M 180 76 L 240 76"></path>
+          <path class="edge-ai" marker-end="url(#ar2-ai)" d="M 400 76 L 460 76"></path>
+          <text class="a-l ai-t" x="430" y="40" text-anchor="middle">async</text>
+          <text class="a-l ai-t" x="430" y="126" text-anchor="middle">invoke</text>
+          <path class="edge" marker-end="url(#ar2)" d="M 620 76 L 680 76"></path>
+          <path class="edge" marker-end="url(#ar2)" d="M 840 76 L 900 76"></path>
+          <text class="a-l" x="760" y="126" text-anchor="middle">route_cluster</text>
+
+          <text class="z-t" x="20" y="196">CLOSURE VERIFICATION · PROOF TO RESOLVED</text>
+
+          <rect class="node" x="20" y="212" width="160" height="56"></rect>
+          <text class="n-t" x="34" y="236">Worker submits</text>
+          <text class="n-t" x="34" y="252">proof + GPS</text>
+
+          <rect class="node" x="240" y="212" width="160" height="56"></rect>
+          <rect class="rail" x="240" y="212" width="3" height="56"></rect>
+          <text class="n-t" x="254" y="236">worker-api</text>
+          <text class="n-s" x="254" y="254">geofence · job row</text>
+
+          <rect class="node-gap" x="460" y="212" width="160" height="56"></rect>
+          <text class="n-t gap-t" x="474" y="236">SQS verification</text>
+          <text class="n-s gap-t" x="474" y="254">queue</text>
+
+          <rect class="node-ai" x="680" y="212" width="160" height="56"></rect>
+          <text class="n-t ai-t" x="694" y="236">closure verifier</text>
+          <text class="n-s" x="694" y="254">decision engine</text>
+
+          <rect class="node" x="900" y="212" width="280" height="56"></rect>
+          <text class="n-t" x="914" y="236">verification_status = APPROVED</text>
+          <text class="n-s" x="914" y="254">status stays in_progress throughout</text>
+
+          <path class="edge" marker-end="url(#ar2)" d="M 180 240 L 240 240"></path>
+          <path class="edge" marker-end="url(#ar2)" d="M 400 240 L 460 240"></path>
+          <text class="a-l" x="430" y="204" text-anchor="middle">publish</text>
+          <path class="edge" marker-end="url(#ar2)" d="M 620 240 L 680 240"></path>
+          <text class="a-l" x="650" y="204" text-anchor="middle">poll</text>
+          <path class="edge" marker-end="url(#ar2)" d="M 840 240 L 900 240"></path>
+
+          <path class="edge" marker-end="url(#ar2)" d="M 1040 268 L 1040 340 L 320 340 L 320 268"></path>
+          <text class="a-l" x="680" y="332" text-anchor="middle">finalizer polls APPROVED, then applyResolve: status = resolved, wallet credited</text>
+
+          <rect class="node-gap" x="460" y="368" width="4" height="4" opacity="0"></rect>
+          <text class="a-l gap-t" x="540" y="392" text-anchor="middle">dashed: the code reads AI_VERIFICATION_SQS_QUEUE_URL, but no queue resource exists in Terraform</text>
+        </svg>

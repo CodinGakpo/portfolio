@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="860" viewBox="0 0 1200 860" role="img" aria-label="Jan Saathi AWS footprint: four clients reach four API Gateway endpoints and two CloudFront distributions; six Lambdas inside a VPC share one RDS Postgres instance; egress to Bedrock, SQS, SSM, DynamoDB and ECR goes through a NAT instance, while S3 uses a gateway endpoint.">
+
+  <style><![CDATA[
+    /* Fonts carry real fallbacks: a standalone SVG referenced as an image
+       cannot fetch a webfont, so it renders in the fallback stack. */
+    svg {
+      color: #E4E8E1;
+      --surface: #0D1524;
+      --ink: #E4E8E1;
+      --ink-soft: #98A194;
+      --accent: #34D399;
+      --ai: #E0906A;
+      --gap: #CFAC55;
+      font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    }
+    .node     { fill: var(--surface); stroke: currentColor; stroke-width: 1.2; }
+    .zone     { fill: none; stroke: currentColor; stroke-width: 1; stroke-dasharray: 5 4; opacity: .55; }
+    .n-t      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 13px; font-weight: 600; fill: var(--ink); }
+    .n-s      { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; font-size: 10.5px; fill: var(--ink-soft); }
+    .z-t      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 10.5px; font-weight: 600; letter-spacing: .1em; fill: var(--ink-soft); }
+    .a-l      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 11px; fill: var(--ink-soft); }
+    .edge     { fill: none; stroke: currentColor; stroke-width: 1.3; opacity: .75; }
+    .edge-ai  { fill: none; stroke: var(--ai); stroke-width: 1.6; }
+    .ai-t     { fill: var(--ai); }
+    .node-ai  { fill: var(--surface); stroke: var(--ai); stroke-width: 1.6; }
+    .node-gap { fill: none; stroke: var(--gap); stroke-width: 1.6; stroke-dasharray: 6 4; }
+    .gap-t    { fill: var(--gap); }
+    .rail     { fill: var(--accent); }
+  ]]></style>
+
+          <defs>
+            <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+            </marker>
+            <marker id="ar-ai" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--ai)"></path>
+            </marker>
+          </defs>
+
+          <!-- column labels -->
+          <text class="z-t" x="20" y="40">CLIENTS</text>
+          <text class="z-t" x="400" y="40">AWS ENTRY POINTS</text>
+          <text class="z-t" x="215" y="302">CDN AND STATIC ORIGIN</text>
+
+          <!-- clients -->
+          <rect class="node" x="20" y="56" width="170" height="52"></rect>
+          <text class="n-t" x="36" y="80">Citizen app</text>
+          <text class="n-s" x="36" y="97">Flutter · Android, iOS</text>
+
+          <rect class="node" x="20" y="136" width="170" height="52"></rect>
+          <text class="n-t" x="36" y="160">Worker app</text>
+          <text class="n-s" x="36" y="177">Flutter · field, supervisor</text>
+
+          <rect class="node" x="20" y="226" width="170" height="52"></rect>
+          <text class="n-t" x="36" y="250">Admin console</text>
+          <text class="n-s" x="36" y="267">React SPA · browser</text>
+
+          <rect class="node" x="20" y="396" width="170" height="52"></rect>
+          <text class="n-t" x="36" y="420">Public info site</text>
+          <text class="n-s" x="36" y="437">React · browser</text>
+
+          <!-- edge -->
+          <rect class="node" x="215" y="316" width="165" height="52"></rect>
+          <text class="n-t" x="231" y="340">CloudFront + OAC</text>
+          <text class="n-s" x="231" y="357">console.jansaathi.co.in</text>
+
+          <rect class="node" x="215" y="396" width="165" height="52"></rect>
+          <text class="n-t" x="231" y="420">CloudFront + OAC</text>
+          <text class="n-s" x="231" y="437">jansaathi.co.in</text>
+
+          <rect class="node" x="215" y="476" width="165" height="46"></rect>
+          <text class="n-t" x="231" y="497">Route 53</text>
+          <text class="n-s" x="231" y="513">2 zones · ACM us-east-1</text>
+
+          <!-- entry points -->
+          <rect class="node" x="400" y="56" width="175" height="46"></rect>
+          <text class="n-t" x="416" y="77">HTTP API v2</text>
+          <text class="n-s" x="416" y="93">client</text>
+
+          <rect class="node" x="400" y="118" width="175" height="46"></rect>
+          <text class="n-t" x="416" y="139">HTTP API v2</text>
+          <text class="n-s" x="416" y="155">worker</text>
+
+          <rect class="node" x="400" y="180" width="175" height="46"></rect>
+          <text class="n-t" x="416" y="201">WebSocket API</text>
+          <text class="n-s" x="416" y="217">worker chat</text>
+
+          <rect class="node" x="400" y="242" width="175" height="46"></rect>
+          <text class="n-t" x="416" y="263">HTTP API v2</text>
+          <text class="n-s" x="416" y="279">admin</text>
+
+          <rect class="node" x="400" y="316" width="175" height="52"></rect>
+          <text class="n-t" x="416" y="340">S3 admin bundle</text>
+          <text class="n-s" x="416" y="357">private · OAC only</text>
+
+          <rect class="node" x="400" y="396" width="175" height="52"></rect>
+          <text class="n-t" x="416" y="420">S3 info bundle</text>
+          <text class="n-s" x="416" y="437">private · OAC only</text>
+
+          <rect class="node" x="400" y="486" width="175" height="46"></rect>
+          <text class="n-t" x="416" y="507">EventBridge</text>
+          <text class="n-s" x="416" y="523">rate(15 minutes)</text>
+
+          <!-- client to entry -->
+          <path class="edge" marker-end="url(#ar)" d="M 190 82 L 400 79"></path>
+          <text class="a-l" x="222" y="74">POST /reports</text>
+
+          <path class="edge" marker-end="url(#ar)" d="M 190 156 L 400 141"></path>
+          <text class="a-l" x="222" y="140">REST</text>
+
+          <path class="edge" marker-end="url(#ar)" d="M 190 172 L 400 203"></path>
+          <text class="a-l" x="238" y="196">chat socket</text>
+
+          <path class="edge" marker-end="url(#ar)" d="M 190 252 L 400 265"></path>
+          <text class="a-l" x="222" y="246">REST</text>
+
+          <path class="edge" marker-end="url(#ar)" d="M 105 278 L 105 342 L 215 342"></path>
+          <text class="a-l" x="118" y="336">app bundle</text>
+
+          <path class="edge" marker-end="url(#ar)" d="M 190 422 L 215 422"></path>
+
+          <path class="edge" marker-end="url(#ar)" d="M 380 342 L 400 342"></path>
+          <path class="edge" marker-end="url(#ar)" d="M 380 422 L 400 422"></path>
+
+          <!-- VPC -->
+          <rect class="zone" x="615" y="30" width="565" height="680"></rect>
+          <text class="z-t" x="631" y="52">VPC · 10.20.0.0/16 · ap-south-1</text>
+
+          <rect class="zone" x="635" y="68" width="525" height="470"></rect>
+          <text class="z-t" x="651" y="88">PRIVATE SUBNETS · 10.20.1.0/24 + 10.20.2.0/24 · 2 AZ</text>
+
+          <rect class="node" x="685" y="100" width="190" height="46"></rect>
+          <rect class="rail" x="685" y="100" width="3" height="46"></rect>
+          <text class="n-t" x="699" y="121">client-api</text>
+          <text class="n-s" x="699" y="137">Go · 256 MB · 29 s</text>
+
+          <rect class="node" x="685" y="158" width="190" height="46"></rect>
+          <rect class="rail" x="685" y="158" width="3" height="46"></rect>
+          <text class="n-t" x="699" y="179">worker-api</text>
+          <text class="n-s" x="699" y="195">Go · 256 MB · 29 s</text>
+
+          <rect class="node" x="685" y="216" width="190" height="46"></rect>
+          <rect class="rail" x="685" y="216" width="3" height="46"></rect>
+          <text class="n-t" x="699" y="237">worker-ws</text>
+          <text class="n-s" x="699" y="253">Go · chat connections</text>
+
+          <rect class="node" x="685" y="274" width="190" height="46"></rect>
+          <rect class="rail" x="685" y="274" width="3" height="46"></rect>
+          <text class="n-t" x="699" y="295">admin-api</text>
+          <text class="n-s" x="699" y="311">Go · 256 MB · 29 s</text>
+
+          <rect class="node" x="685" y="332" width="190" height="46"></rect>
+          <rect class="rail" x="685" y="332" width="3" height="46"></rect>
+          <text class="n-t" x="699" y="353">sla-watchdog</text>
+          <text class="n-s" x="699" y="369">Go · 72 h / 48 h checks</text>
+
+          <rect class="node-ai" x="685" y="418" width="190" height="46"></rect>
+          <text class="n-t ai-t" x="699" y="439">analysis-worker</text>
+          <text class="n-s" x="699" y="455">container · 1536 MB · 90 s</text>
+
+          <rect class="node" x="955" y="210" width="185" height="110"></rect>
+          <text class="n-t" x="971" y="248">RDS PostgreSQL</text>
+          <text class="n-s" x="971" y="268">16.9 · db.t4g.micro</text>
+          <text class="n-s" x="971" y="284">20 GB gp3 · encrypted</text>
+          <text class="n-s" x="971" y="300">single AZ · not public</text>
+
+          <!-- entry to lambda -->
+          <path class="edge" marker-end="url(#ar)" d="M 575 79 L 685 123"></path>
+          <path class="edge" marker-end="url(#ar)" d="M 575 141 L 685 181"></path>
+          <path class="edge" marker-end="url(#ar)" d="M 575 203 L 685 239"></path>
+          <path class="edge" marker-end="url(#ar)" d="M 575 265 L 685 297"></path>
+          <path class="edge" marker-end="url(#ar)" d="M 575 509 L 685 355"></path>
+
+          <!-- db trunk -->
+          <path class="edge" d="M 875 123 L 915 123"></path>
+          <path class="edge" d="M 875 181 L 915 181"></path>
+          <path class="edge" d="M 875 239 L 915 239"></path>
+          <path class="edge" d="M 875 297 L 915 297"></path>
+          <path class="edge" d="M 875 355 L 915 355"></path>
+          <path class="edge-ai" d="M 875 441 L 915 441"></path>
+          <path class="edge" d="M 915 123 L 915 441"></path>
+          <path class="edge" marker-end="url(#ar)" d="M 915 265 L 955 265"></path>
+          <text class="a-l" x="925" y="400">TCP 5432</text>
+          <text class="a-l" x="925" y="416">one schema,</text>
+          <text class="a-l" x="925" y="432">many writers</text>
+
+          <!-- async invoke lane -->
+          <path class="edge-ai" marker-end="url(#ar-ai)" d="M 685 110 L 660 110 L 660 441 L 685 441"></path>
+          <text class="a-l ai-t" transform="rotate(-90 650 300)" x="650" y="300" text-anchor="middle">InvocationType = Event</text>
+
+          <!-- public subnet -->
+          <rect class="zone" x="635" y="560" width="525" height="130"></rect>
+          <text class="z-t" x="651" y="580">PUBLIC SUBNET · 10.20.0.0/24</text>
+
+          <rect class="node" x="660" y="596" width="200" height="64"></rect>
+          <text class="n-t" x="676" y="620">NAT instance</text>
+          <text class="n-s" x="676" y="637">t3.micro + Elastic IP</text>
+          <text class="n-s" x="676" y="652">self-managed, not a gateway</text>
+
+          <rect class="node" x="900" y="596" width="230" height="64"></rect>
+          <text class="n-t" x="916" y="620">S3 gateway endpoint</text>
+          <text class="n-s" x="916" y="637">free · keeps image traffic</text>
+          <text class="n-s" x="916" y="652">off the NAT instance</text>
+
+          <path class="edge" marker-end="url(#ar)" d="M 760 538 L 760 596"></path>
+          <text class="a-l" x="770" y="570">0.0.0.0/0</text>
+          <path class="edge" marker-end="url(#ar)" d="M 1015 538 L 1015 596"></path>
+
+          <!-- egress bus -->
+          <path class="edge" d="M 760 660 L 760 730"></path>
+          <path class="edge" d="M 110 730 L 894 730"></path>
+          <text class="a-l" x="122" y="722">egress through the NAT instance</text>
+          <path class="edge" marker-end="url(#ar)" d="M 110 730 L 110 766"></path>
+          <path class="edge" marker-end="url(#ar)" d="M 306 730 L 306 766"></path>
+          <path class="edge" marker-end="url(#ar)" d="M 502 730 L 502 766"></path>
+          <path class="edge" marker-end="url(#ar)" d="M 698 730 L 698 766"></path>
+          <path class="edge" marker-end="url(#ar)" d="M 894 730 L 894 766"></path>
+          <path class="edge" marker-end="url(#ar)" d="M 1015 660 L 1015 746 L 1090 746 L 1090 766"></path>
+          <text class="a-l" x="1030" y="712">no NAT charge</text>
+
+          <rect class="node-ai" x="22" y="766" width="176" height="68"></rect>
+          <text class="n-t ai-t" x="38" y="790">Amazon Bedrock</text>
+          <text class="n-s" x="38" y="807">Nova Pro · APAC</text>
+          <text class="n-s" x="38" y="822">inference profile</text>
+
+          <rect class="node" x="218" y="766" width="176" height="68"></rect>
+          <text class="n-t" x="234" y="790">Amazon SQS</text>
+          <text class="n-s" x="234" y="807">analysis dead letter</text>
+          <text class="n-s" x="234" y="822">14 day retention</text>
+
+          <rect class="node" x="414" y="766" width="176" height="68"></rect>
+          <text class="n-t" x="430" y="790">SSM Parameters</text>
+          <text class="n-s" x="430" y="807">DATABASE_URL,</text>
+          <text class="n-s" x="430" y="822">bucket name + region</text>
+
+          <rect class="node" x="610" y="766" width="176" height="68"></rect>
+          <text class="n-t" x="626" y="790">DynamoDB</text>
+          <text class="n-s" x="626" y="807">ws connections</text>
+          <text class="n-s" x="626" y="822">on demand · TTL</text>
+
+          <rect class="node" x="806" y="766" width="176" height="68"></rect>
+          <text class="n-t" x="822" y="790">Amazon ECR</text>
+          <text class="n-s" x="822" y="807">analysis-worker</text>
+          <text class="n-s" x="822" y="822">image · lifecycle rule</text>
+
+          <rect class="node" x="1002" y="766" width="176" height="68"></rect>
+          <text class="n-t" x="1018" y="790">S3 report images</text>
+          <text class="n-s" x="1018" y="807">SSE · presigned PUT</text>
+          <text class="n-s" x="1018" y="822">to IA at 90 days</text>
+        </svg>

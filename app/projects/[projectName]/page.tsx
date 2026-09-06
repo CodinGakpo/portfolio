@@ -1,16 +1,19 @@
 import { notFound } from 'next/navigation';
-import { projectDocs } from '../../data/projectDocs';
+import { projectDocsMeta } from '../../data/projectDocsMeta';
+import { getProjectDocuments } from '../../lib/docs';
 import ProjectDocViewer from '../../components/projects/ProjectDocViewer';
 
-export default async function ProjectPage({ params }: { params: Promise<{ projectName: string }> }) {
-  const resolvedParams = await params;
-  // Match the route parameter exactly with the keys in projectDocs
-  const project = projectDocs[resolvedParams.projectName];
+export function generateStaticParams() {
+  return Object.keys(projectDocsMeta).map((projectName) => ({ projectName }));
+}
 
-  if (!project) {
+export default async function ProjectPage({ params }: { params: Promise<{ projectName: string }> }) {
+  const { projectName } = await params;
+  const meta = projectDocsMeta[projectName];
+
+  if (!meta) {
     notFound();
   }
 
-  return <ProjectDocViewer project={project} />;
+  return <ProjectDocViewer meta={meta} documents={getProjectDocuments(projectName)} />;
 }
-
