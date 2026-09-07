@@ -86,13 +86,17 @@ export const projectDocsMeta: Record<string, ProjectDocMeta> = {
   drdeepti: {
     id: 'drdeepti',
     title: 'DrDeepti',
-    tagline: 'Appointment Platform + WhatsApp Chatbot for Adarsh ENT Clinic',
+    tagline: "A Real Clinic's Booking Platform, Plus the WhatsApp Channel Patients Actually Use",
     description:
-      'A production-grade ENT clinic platform — a web booking system for self-service slot management, extended by a serverless WhatsApp chatbot that captures patient leads directly in-chat.',
+      'Three independently deployed services over one Neon Postgres — a React booking flow, a Django API where two patients structurally cannot take the same slot, and a serverless WhatsApp chatbot that captures the patients who were never going to open a website.',
     difficulty: 6,
     learning: 6,
     liveUrl: 'https://drdeeptientdelhi.in',
     githubUrl: 'https://github.com/CodinGakpo/DrDeeptiEnt',
+    notice: {
+      text: 'Live and in real use at an active ENT clinic in Delhi, on approximately $0/month of infrastructure.',
+      links: [{ label: 'drdeeptientdelhi.in', url: 'https://drdeeptientdelhi.in' }],
+    },
     versions: [
       {
         id: 'v1-1',
@@ -132,12 +136,15 @@ export const projectDocsMeta: Record<string, ProjectDocMeta> = {
   documiner: {
     id: 'documiner',
     title: 'DocuMiner',
-    tagline: 'AI Enterprise Document Security Analyzer',
+    tagline: 'Redact First, Then Analyse — Document Security Analysis That Never Ships Your PII',
     description:
-      'Agentic zero-shot AI pipeline that analyzes enterprise documents for security compliance violations.',
+      'A Django pipeline that strips PII from PDFs, decks, spreadsheets and scans before a single token reaches a model — then finds firewall rules, IAM statements and verification anomalies in what is left.',
     difficulty: 7,
     learning: 7,
     githubUrl: 'https://github.com/CodinGakpo/DocuMiner',
+    notice: {
+      text: 'A B.Tech capstone, filed as a patent disclosure through VIT’s IPR process. It is coursework rather than a deployed product, and the Known Defects document lists what is currently broken rather than leaving it to be discovered.',
+    },
     versions: [
       {
         id: 'v2',

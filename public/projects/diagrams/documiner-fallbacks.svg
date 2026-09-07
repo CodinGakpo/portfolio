@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-label="DocuMiner classification routing and its three fallback layers: a page is classified into one of five labels, three of which have registered extraction chains while Employee_Record and General_Text have none. A chain whose Pydantic parse fails degrades to a medium-risk fallback insight carrying truncated content, an unrouted label degrades to a low-risk general insight, and a failure of the analysis run as a whole returns a single informational placeholder. Every path produces an insight, so the upload always completes.">
+
+  <style><![CDATA[
+    /* Fonts carry real fallbacks: a standalone SVG referenced as an image
+       cannot fetch a webfont, so it renders in the fallback stack. */
+    svg {
+      color: #E4E8E1;
+      --surface: #0D1524;
+      --ink: #E4E8E1;
+      --ink-soft: #98A194;
+      --accent: #34D399;
+      --ai: #E0906A;
+      --gap: #CFAC55;
+      font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    }
+    .node     { fill: var(--surface); stroke: currentColor; stroke-width: 1.2; }
+    .zone     { fill: none; stroke: currentColor; stroke-width: 1; stroke-dasharray: 5 4; opacity: .55; }
+    .n-t      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 13px; font-weight: 600; fill: var(--ink); }
+    .n-s      { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; font-size: 10.5px; fill: var(--ink-soft); }
+    .z-t      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 10.5px; font-weight: 600; letter-spacing: .1em; fill: var(--ink-soft); }
+    .a-l      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 11px; fill: var(--ink-soft); }
+    .edge     { fill: none; stroke: currentColor; stroke-width: 1.3; opacity: .75; }
+    .edge-acc { fill: none; stroke: var(--accent); stroke-width: 1.6; }
+    .edge-gap { fill: none; stroke: var(--gap); stroke-width: 1.3; stroke-dasharray: 6 4; }
+    .node-acc { fill: var(--surface); stroke: var(--accent); stroke-width: 1.6; }
+    .node-gap { fill: none; stroke: var(--gap); stroke-width: 1.6; stroke-dasharray: 6 4; }
+    .gap-t    { fill: var(--gap); }
+    .acc-t    { fill: var(--accent); }
+    .rail     { fill: var(--accent); }
+  ]]></style>
+
+  <defs>
+    <marker id="fb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+    </marker>
+    <marker id="fb-acc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"></path>
+    </marker>
+    <marker id="fb-gap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--gap)"></path>
+    </marker>
+  </defs>
+
+  <text class="z-t" x="20" y="32">ROUTING, AND THE THREE LAYERS UNDERNEATH IT</text>
+
+  <rect class="node" x="20" y="60" width="190" height="80"></rect>
+  <text class="n-t" x="36" y="86">one page</text>
+  <text class="n-s" x="36" y="106">already redacted</text>
+  <text class="n-s" x="36" y="122">text, tables, OCR</text>
+
+  <rect class="node-acc" x="270" y="60" width="220" height="80"></rect>
+  <text class="n-t acc-t" x="286" y="86">classify</text>
+  <text class="n-s" x="286" y="106">zero-shot, one of</text>
+  <text class="n-s" x="286" y="122">five labels</text>
+
+  <path class="edge" marker-end="url(#fb)" d="M 210 100 L 270 100"></path>
+
+  <rect class="node-acc" x="570" y="30" width="290" height="52"></rect>
+  <text class="n-t acc-t" x="586" y="52">Firewall_Rule</text>
+  <text class="n-s" x="586" y="70">→ FirewallRule schema</text>
+
+  <rect class="node-acc" x="570" y="94" width="290" height="52"></rect>
+  <text class="n-t acc-t" x="586" y="116">IAM_Policy</text>
+  <text class="n-s" x="586" y="134">→ IAMPolicy schema</text>
+
+  <rect class="node-acc" x="570" y="158" width="290" height="52"></rect>
+  <text class="n-t acc-t" x="586" y="180">Policy_Document</text>
+  <text class="n-s" x="586" y="198">→ PolicyDocument schema</text>
+
+  <rect class="node-gap" x="570" y="222" width="290" height="66"></rect>
+  <text class="n-t gap-t" x="586" y="244">Employee_Record</text>
+  <text class="n-t gap-t" x="586" y="262">General_Text</text>
+  <text class="n-s gap-t" x="586" y="280">no chain registered</text>
+
+  <path class="edge-acc" marker-end="url(#fb-acc)" d="M 490 100 L 530 100 L 530 56 L 570 56"></path>
+  <path class="edge-acc" marker-end="url(#fb-acc)" d="M 490 100 L 530 100 L 530 120 L 570 120"></path>
+  <path class="edge-acc" marker-end="url(#fb-acc)" d="M 530 120 L 530 184 L 570 184"></path>
+  <path class="edge-gap" marker-end="url(#fb-gap)" d="M 530 184 L 530 255 L 570 255"></path>
+
+  <rect class="node" x="920" y="94" width="260" height="52"></rect>
+  <text class="n-t" x="936" y="116">structured insight</text>
+  <text class="n-s" x="936" y="134">validated by Pydantic</text>
+
+  <path class="edge-acc" d="M 860 56 L 890 56"></path>
+  <path class="edge-acc" d="M 860 120 L 890 120"></path>
+  <path class="edge-acc" d="M 860 184 L 890 184"></path>
+  <path class="edge-acc" d="M 890 56 L 890 184"></path>
+  <path class="edge-acc" marker-end="url(#fb-acc)" d="M 890 120 L 920 120"></path>
+
+  <!-- Fallback layers -->
+  <rect class="zone" x="20" y="330" width="1160" height="150"></rect>
+  <text class="z-t" x="40" y="356">THREE FALLBACK LAYERS · EVERY PATH STILL PRODUCES AN INSIGHT</text>
+
+  <rect class="node-gap" x="40" y="372" width="360" height="90"></rect>
+  <text class="n-t gap-t" x="56" y="394">1 · the parse fails</text>
+  <text class="n-s gap-t" x="56" y="414">a routed chain returns something</text>
+  <text class="n-s gap-t" x="56" y="430">Pydantic rejects → a Medium-risk</text>
+  <text class="n-s gap-t" x="56" y="446">insight carrying truncated content</text>
+
+  <rect class="node-gap" x="420" y="372" width="360" height="90"></rect>
+  <text class="n-t gap-t" x="436" y="394">2 · the label has no chain</text>
+  <text class="n-s gap-t" x="436" y="414">Employee_Record or General_Text</text>
+  <text class="n-s gap-t" x="436" y="430">→ a Low-risk general insight, still</text>
+  <text class="n-s gap-t" x="436" y="446">carrying the page's own content</text>
+
+  <rect class="node-gap" x="800" y="372" width="360" height="90"></rect>
+  <text class="n-t gap-t" x="816" y="394">3 · the whole run throws</text>
+  <text class="n-s gap-t" x="816" y="414">no API key, no quota, no network</text>
+  <text class="n-s gap-t" x="816" y="430">→ one Informational placeholder,</text>
+  <text class="n-s gap-t" x="816" y="446">and the upload still completes</text>
+
+  <text class="a-l" x="20" y="512">Layer 3 is the one worth arguing about. An upload that silently reports "analysis temporarily unavailable" looks the same to a user whether the key expired</text>
+  <text class="a-l" x="20" y="530">or the document was genuinely clean — so a failed analysis and an uneventful one are indistinguishable in the interface. Stage 1 redaction is unaffected either way.</text>
+</svg>
