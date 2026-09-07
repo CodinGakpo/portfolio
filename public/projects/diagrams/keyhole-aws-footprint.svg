@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="KeyHole AWS footprint: a CLI and an MCP server call one API Gateway HTTP API backed by a Lambda control plane; the Lambda launches a single ECS Fargate task per run inside a private subnet with no NAT and no internet route, where an init container chowns the scratch volume before a non-root sandbox container runs the untrusted code under an empty task role; the sandbox reaches S3 only through a free gateway endpoint, while opt-in ECR and Logs interface endpoints serve image pull and logging; the Lambda alone writes DynamoDB run and audit tables, the artifacts bucket and the KMS signing key.">
+
+  <style><![CDATA[
+    /* Fonts carry real fallbacks: a standalone SVG referenced as an image
+       cannot fetch a webfont, so it renders in the fallback stack. */
+    svg {
+      color: #E4E8E1;
+      --surface: #0D1524;
+      --ink: #E4E8E1;
+      --ink-soft: #98A194;
+      --accent: #34D399;
+      --ai: #E0906A;
+      --gap: #CFAC55;
+      font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    }
+    .node     { fill: var(--surface); stroke: currentColor; stroke-width: 1.2; }
+    .zone     { fill: none; stroke: currentColor; stroke-width: 1; stroke-dasharray: 5 4; opacity: .55; }
+    .n-t      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 13px; font-weight: 600; fill: var(--ink); }
+    .n-s      { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; font-size: 10.5px; fill: var(--ink-soft); }
+    .z-t      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 10.5px; font-weight: 600; letter-spacing: .1em; fill: var(--ink-soft); }
+    .a-l      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 11px; fill: var(--ink-soft); }
+    .edge     { fill: none; stroke: currentColor; stroke-width: 1.3; opacity: .75; }
+    .edge-ai  { fill: none; stroke: var(--ai); stroke-width: 1.6; }
+    .ai-t     { fill: var(--ai); }
+    .node-ai  { fill: var(--surface); stroke: var(--ai); stroke-width: 1.6; }
+    .node-gap { fill: none; stroke: var(--gap); stroke-width: 1.6; stroke-dasharray: 6 4; }
+    .gap-t    { fill: var(--gap); }
+    .rail     { fill: var(--accent); }
+    .acc-t    { fill: var(--accent); }
+  ]]></style>
+
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+    </marker>
+    <marker id="ar-ai" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--ai)"></path>
+    </marker>
+  </defs>
+
+  <!-- ── Clients ─────────────────────────────────────────────────────── -->
+  <text class="z-t" x="40" y="32">CLIENTS · THIN WRAPPERS OVER ONE REST API</text>
+
+  <rect class="node" x="40" y="46" width="200" height="56"></rect>
+  <text class="n-t" x="56" y="70">sbx CLI</text>
+  <text class="n-s" x="56" y="88">run · verify · dashboard</text>
+
+  <rect class="node" x="280" y="46" width="200" height="56"></rect>
+  <text class="n-t" x="296" y="70">MCP server</text>
+  <text class="n-s" x="296" y="88">run_confidential</text>
+
+  <path class="edge" d="M 140 102 L 140 132 L 260 132"></path>
+  <path class="edge" marker-end="url(#ar)" d="M 380 102 L 380 132 L 260 132 L 260 162"></path>
+
+  <!-- ── Control plane ───────────────────────────────────────────────── -->
+  <text class="z-t" x="420" y="146">CONTROL PLANE · SCALES TO ZERO</text>
+
+  <rect class="node" x="160" y="162" width="200" height="56"></rect>
+  <text class="n-t" x="176" y="186">API Gateway</text>
+  <text class="n-s" x="176" y="204">HTTP API v2</text>
+
+  <rect class="node" x="420" y="162" width="340" height="56"></rect>
+  <rect class="rail" x="420" y="162" width="3" height="56"></rect>
+  <text class="n-t" x="436" y="186">Lambda control plane</text>
+  <text class="n-s" x="436" y="204">validate · launch · exit gate · sign · audit</text>
+
+  <path class="edge" marker-end="url(#ar)" d="M 360 190 L 420 190"></path>
+
+  <path class="edge" marker-end="url(#ar)" d="M 590 218 L 590 336"></path>
+  <text class="a-l" x="602" y="270">ecs.RunTask</text>
+  <text class="a-l" x="602" y="286">one task per run</text>
+
+  <path class="edge" marker-end="url(#ar)" d="M 760 190 L 980 190 L 980 306"></path>
+  <text class="a-l" x="866" y="182" text-anchor="middle">the only writer</text>
+
+  <!-- ── VPC ─────────────────────────────────────────────────────────── -->
+  <rect class="zone" x="40" y="290" width="700" height="310"></rect>
+  <text class="z-t" x="56" y="316">VPC · PRIVATE SUBNET · NO NAT · NO INTERNET ROUTE</text>
+
+  <rect class="node" x="70" y="336" width="640" height="160"></rect>
+  <text class="n-t" x="86" y="360">ECS Fargate task</text>
+  <text class="n-s" x="86" y="378">256 CPU / 512 MB · read-only root FS · empty task role</text>
+
+  <rect class="node" x="100" y="396" width="270" height="72"></rect>
+  <text class="n-t" x="116" y="422">init-chown</text>
+  <text class="n-s" x="116" y="440">user 0:0 · essential=false</text>
+  <text class="n-s" x="116" y="456">chowns the scratch volume</text>
+
+  <rect class="node-ai" x="410" y="396" width="270" height="72"></rect>
+  <text class="n-t ai-t" x="426" y="422">sandbox</text>
+  <text class="n-s" x="426" y="440">user 10001 · untrusted code</text>
+  <text class="n-s" x="426" y="456">no creds · no network · timeout</text>
+
+  <path class="edge-ai" marker-end="url(#ar-ai)" d="M 370 432 L 410 432"></path>
+  <text class="a-l" x="390" y="490" text-anchor="middle">dependsOn: SUCCESS</text>
+
+  <rect class="node" x="400" y="520" width="300" height="60"></rect>
+  <rect class="rail" x="400" y="520" width="3" height="60"></rect>
+  <text class="n-t acc-t" x="416" y="544">S3 gateway endpoint</text>
+  <text class="n-s" x="416" y="562">free · presigned GET input, PUT output</text>
+
+  <rect class="node-gap" x="70" y="520" width="300" height="60"></rect>
+  <text class="n-t gap-t" x="86" y="544">ECR + Logs endpoints</text>
+  <text class="n-s gap-t" x="86" y="562">interface · opt-in at deploy time</text>
+
+  <path class="edge-ai" marker-end="url(#ar-ai)" d="M 545 468 L 545 520"></path>
+  <text class="a-l ai-t" x="560" y="514">the only way out</text>
+
+  <path class="edge" marker-end="url(#ar)" d="M 220 496 L 220 520"></path>
+
+  <!-- ── State, storage and crypto ───────────────────────────────────── -->
+  <text class="z-t" x="800" y="316">STATE, STORAGE AND CRYPTO</text>
+
+  <rect class="node" x="800" y="336" width="360" height="56"></rect>
+  <text class="n-t" x="816" y="360">DynamoDB · mark1_runs</text>
+  <text class="n-s" x="816" y="378">run state, polled by the client</text>
+
+  <rect class="node" x="800" y="412" width="360" height="56"></rect>
+  <text class="n-t" x="816" y="436">DynamoDB · mark1_audit</text>
+  <text class="n-s" x="816" y="454">append-only · data-flow record</text>
+
+  <rect class="node" x="800" y="488" width="360" height="56"></rect>
+  <text class="n-t" x="816" y="512">S3 · artifacts bucket</text>
+  <text class="n-s" x="816" y="530">code, data, schema, output, attestation · SSE-KMS</text>
+
+  <rect class="node" x="800" y="564" width="360" height="56"></rect>
+  <rect class="rail" x="800" y="564" width="3" height="56"></rect>
+  <text class="n-t acc-t" x="816" y="588">KMS signing key</text>
+  <text class="n-s" x="816" y="606">ECC_NIST_P256 · private key never leaves KMS</text>
+
+  <path class="edge" marker-end="url(#ar)" d="M 700 550 L 750 550 L 750 516 L 800 516"></path>
+
+  <!-- ── The claim ───────────────────────────────────────────────────── -->
+  <rect class="zone" x="40" y="650" width="1120" height="110"></rect>
+  <text class="z-t" x="60" y="676">THE LOAD-BEARING CLAIM</text>
+  <text class="a-l" x="60" y="700">The sandbox box has no edge leaving the VPC except its output object. Egress containment is the subnet, the route table and the</text>
+  <text class="a-l" x="60" y="718">security group — not a sidecar: Fargate awsvpc containers share one network namespace, so a sidecar is a peer, never a gateway.</text>
+  <text class="a-l" x="60" y="740">Three IAM roles exist. The control-plane role is scoped, the task execution role pulls images and writes logs, and the task role —</text>
+  <text class="a-l acc-t" x="60" y="756">the sandbox's own identity — is empty, so the metadata endpoint vends credentials that can do nothing.</text>
+</svg>

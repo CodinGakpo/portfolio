@@ -59,12 +59,15 @@ export const projectDocsMeta: Record<string, ProjectDocMeta> = {
   keyhole: {
     id: 'keyhole',
     title: 'KeyHole',
-    tagline: 'Confidential Compute Sandbox for Untrusted / AI-Generated Code',
+    tagline: 'Confidential Code Execution with a Bandwidth-Bounded, Attested Exit',
     description:
-      'Lets untrusted or AI-generated code run against private data in the cloud and return only a small, cryptographically-attested answer — the data is structurally incapable of leaking out, not just scanned for leaks.',
+      'Runs untrusted or AI-generated code against private data in your own AWS account and returns only a small, typed, cryptographically attested answer — the data stays in because the exit is a few bits wide, not because a filter is watching it.',
     difficulty: 9,
     learning: 9,
     githubUrl: 'https://github.com/CodinGakpo/KeyHole',
+    notice: {
+      text: 'KeyHole is a self-hosted tool with no public URL by design — it deploys into your own AWS account with one terraform apply. Verified end to end on real AWS, then torn down to keep idle cost near $0.',
+    },
     externalLinks: [
       { label: 'README + architecture diagram', url: 'https://github.com/CodinGakpo/KeyHole/blob/HEAD/README.md' },
       { label: 'SECURITY.md', url: 'https://github.com/CodinGakpo/KeyHole/blob/HEAD/SECURITY.md' },
