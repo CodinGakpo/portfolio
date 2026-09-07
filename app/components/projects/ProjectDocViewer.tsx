@@ -124,7 +124,19 @@ export default function ProjectDocViewer({ meta, documents }: Props) {
           {children}
         </h3>
       ),
-      p: ({ children }) => <p className="mb-6 leading-8 opacity-85">{children}</p>,
+      // A markdown image on its own line becomes a paragraph wrapping that image.
+      // Our img renderer emits a <figure>, which is not valid inside <p> and breaks
+      // hydration — so unwrap paragraphs whose only content is image(s).
+      p: ({ children, node }) => {
+        const meaningful = (node?.children ?? []).filter(
+          (child) => !(child.type === 'text' && child.value.trim() === '')
+        );
+        const imageOnly =
+          meaningful.length > 0 &&
+          meaningful.every((child) => child.type === 'element' && child.tagName === 'img');
+        if (imageOnly) return <>{children}</>;
+        return <p className="mb-6 leading-8 opacity-85">{children}</p>;
+      },
       ul: ({ children }) => <ul className="mb-6 space-y-2 pl-5 list-disc marker:text-[var(--doc-accent)]">{children}</ul>,
       ol: ({ children }) => <ol className="mb-6 space-y-2 pl-5 list-decimal marker:text-[var(--doc-accent)]">{children}</ol>,
       li: ({ children }) => <li className="leading-8 opacity-85">{children}</li>,

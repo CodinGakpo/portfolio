@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="860" viewBox="0 0 1200 860" role="img" aria-label="ShieldStream request path and event fan-out: a client request passes through authentication, policy lookup and the rate limiter before being proxied to the tenant's upstream; all three stages read Redis and fall through to Postgres or an in-memory limiter when Redis is unreachable; the proxy emits one fire-and-forget event to a Redis stream, which two independent consumer groups drain — analytics, which writes idempotently to a TimescaleDB hypertable and scales horizontally, and alerts, which runs as a single replica and publishes deduplicated alerts over Redis Pub/Sub to the dashboard websocket.">
+
+  <style><![CDATA[
+    /* Fonts carry real fallbacks: a standalone SVG referenced as an image
+       cannot fetch a webfont, so it renders in the fallback stack. */
+    svg {
+      color: #E4E8E1;
+      --surface: #0D1524;
+      --ink: #E4E8E1;
+      --ink-soft: #98A194;
+      --accent: #34D399;
+      --ai: #E0906A;
+      --gap: #CFAC55;
+      font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    }
+    .node     { fill: var(--surface); stroke: currentColor; stroke-width: 1.2; }
+    .zone     { fill: none; stroke: currentColor; stroke-width: 1; stroke-dasharray: 5 4; opacity: .55; }
+    .n-t      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 13px; font-weight: 600; fill: var(--ink); }
+    .n-s      { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; font-size: 10.5px; fill: var(--ink-soft); }
+    .z-t      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 10.5px; font-weight: 600; letter-spacing: .1em; fill: var(--ink-soft); }
+    .a-l      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 11px; fill: var(--ink-soft); }
+    .edge     { fill: none; stroke: currentColor; stroke-width: 1.3; opacity: .75; }
+    .edge-gap { fill: none; stroke: var(--gap); stroke-width: 1.3; stroke-dasharray: 6 4; }
+    .edge-acc { fill: none; stroke: var(--accent); stroke-width: 1.6; }
+    .node-ai  { fill: var(--surface); stroke: var(--ai); stroke-width: 1.6; }
+    .node-gap { fill: none; stroke: var(--gap); stroke-width: 1.6; stroke-dasharray: 6 4; }
+    .node-acc { fill: var(--surface); stroke: var(--accent); stroke-width: 1.6; }
+    .ai-t     { fill: var(--ai); }
+    .gap-t    { fill: var(--gap); }
+    .acc-t    { fill: var(--accent); }
+    .rail     { fill: var(--accent); }
+  ]]></style>
+
+  <defs>
+    <marker id="sa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+    </marker>
+    <marker id="sa-gap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--gap)"></path>
+    </marker>
+    <marker id="sa-acc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"></path>
+    </marker>
+  </defs>
+
+  <!-- ── The request path ────────────────────────────────────────────── -->
+  <text class="z-t" x="20" y="32">REQUEST PATH · RESOLVED BY THE DEPENDENCY GRAPH, NOT MIDDLEWARE ORDER</text>
+
+  <rect class="node" x="20" y="90" width="140" height="60"></rect>
+  <text class="n-t" x="34" y="116">client</text>
+  <text class="n-s" x="34" y="134">X-API-Key</text>
+
+  <rect class="node" x="200" y="90" width="160" height="60"></rect>
+  <text class="n-t" x="214" y="116">get_tenant</text>
+  <text class="n-s" x="214" y="134">SHA-256 key · 30s</text>
+
+  <rect class="node" x="400" y="90" width="160" height="60"></rect>
+  <text class="n-t" x="414" y="116">policy lookup</text>
+  <text class="n-s" x="414" y="134">glob match · 10s</text>
+
+  <rect class="node-acc" x="600" y="90" width="170" height="60"></rect>
+  <text class="n-t acc-t" x="614" y="116">rate limit</text>
+  <text class="n-s" x="614" y="134">sliding window · Lua</text>
+
+  <rect class="node" x="810" y="90" width="150" height="60"></rect>
+  <text class="n-t" x="824" y="116">proxy</text>
+  <text class="n-s" x="824" y="134">httpx</text>
+
+  <rect class="node" x="1000" y="90" width="180" height="60"></rect>
+  <text class="n-t" x="1014" y="116">tenant upstream</text>
+  <text class="n-s" x="1014" y="134">2s connect budget</text>
+
+  <path class="edge" marker-end="url(#sa)" d="M 160 120 L 200 120"></path>
+  <path class="edge" marker-end="url(#sa)" d="M 360 120 L 400 120"></path>
+  <path class="edge" marker-end="url(#sa)" d="M 560 120 L 600 120"></path>
+  <path class="edge" marker-end="url(#sa)" d="M 770 120 L 810 120"></path>
+  <path class="edge" marker-end="url(#sa)" d="M 960 120 L 1000 120"></path>
+
+  <text class="a-l gap-t" x="685" y="76" text-anchor="middle">429 short-circuits here — and emits its own event</text>
+
+  <!-- ── Redis, and the fallbacks under it ───────────────────────────── -->
+  <rect class="node" x="200" y="200" width="570" height="60"></rect>
+  <rect class="rail" x="200" y="200" width="3" height="60"></rect>
+  <text class="n-t acc-t" x="216" y="226">Redis</text>
+  <text class="n-s" x="216" y="244">tenant cache 30s · policy cache 10s · sliding-window sorted set</text>
+
+  <path class="edge" marker-end="url(#sa)" d="M 280 150 L 280 200"></path>
+  <path class="edge" marker-end="url(#sa)" d="M 480 150 L 480 200"></path>
+  <path class="edge" marker-end="url(#sa)" d="M 685 150 L 685 200"></path>
+
+  <rect class="node-gap" x="250" y="310" width="260" height="60"></rect>
+  <text class="n-t gap-t" x="266" y="336">Postgres</text>
+  <text class="n-s gap-t" x="266" y="354">the actual source of truth</text>
+
+  <rect class="node-gap" x="600" y="310" width="270" height="60"></rect>
+  <text class="n-t gap-t" x="616" y="336">in-memory limiter</text>
+  <text class="n-s gap-t" x="616" y="354">per-process, not distributed</text>
+
+  <path class="edge-gap" marker-end="url(#sa-gap)" d="M 380 260 L 380 310"></path>
+  <path class="edge-gap" marker-end="url(#sa-gap)" d="M 700 260 L 700 310"></path>
+  <text class="a-l gap-t" x="392" y="292">on RedisError · 0.2s socket timeout · fail open</text>
+
+  <!-- ── Event fan-out ───────────────────────────────────────────────── -->
+  <text class="z-t" x="20" y="430">EVENT FAN-OUT · PUBLISH ONCE, CONSUME INDEPENDENTLY</text>
+
+  <path class="edge-acc" marker-end="url(#sa-acc)" d="M 885 150 L 885 410 L 590 410 L 590 452"></path>
+  <text class="a-l acc-t" x="900" y="290">emit_event via asyncio.create_task</text>
+  <text class="a-l acc-t" x="900" y="306">fire and forget · no measurable</text>
+  <text class="a-l acc-t" x="900" y="322">request-path cost</text>
+
+  <rect class="node-acc" x="380" y="452" width="420" height="64"></rect>
+  <text class="n-t acc-t" x="396" y="478">Redis Stream · request_events</text>
+  <text class="n-s" x="396" y="498">MAXLEN ~ 100,000 · approximate trimming</text>
+
+  <rect class="node" x="200" y="590" width="340" height="86"></rect>
+  <text class="n-t" x="216" y="616">analytics-cg</text>
+  <text class="n-s" x="216" y="636">write, then acknowledge</text>
+  <text class="n-s" x="216" y="652">idempotent upsert · replays on restart</text>
+  <text class="n-s acc-t" x="216" y="668">scales horizontally</text>
+
+  <rect class="node-ai" x="640" y="590" width="340" height="86"></rect>
+  <text class="n-t ai-t" x="656" y="616">alert-cg</text>
+  <text class="n-s" x="656" y="636">acknowledges every message</text>
+  <text class="n-s" x="656" y="652">drops pending on restart · timely, not durable</text>
+  <text class="n-s ai-t" x="656" y="668">single replica by design</text>
+
+  <path class="edge" marker-end="url(#sa)" d="M 500 516 L 370 516 L 370 590"></path>
+  <path class="edge" marker-end="url(#sa)" d="M 680 516 L 810 516 L 810 590"></path>
+
+  <rect class="node" x="200" y="726" width="340" height="60"></rect>
+  <text class="n-t" x="216" y="752">Postgres + TimescaleDB</text>
+  <text class="n-s" x="216" y="770">request_metrics hypertable · RLS</text>
+
+  <rect class="node" x="640" y="726" width="340" height="60"></rect>
+  <text class="n-t" x="656" y="752">Pub/Sub → dashboard WS</text>
+  <text class="n-s" x="656" y="770">deduplicated in a 60s window</text>
+
+  <path class="edge" marker-end="url(#sa)" d="M 370 676 L 370 726"></path>
+  <path class="edge" marker-end="url(#sa)" d="M 810 676 L 810 726"></path>
+
+  <text class="a-l" x="20" y="826">One XADD feeds both groups from independent offsets, so neither group's lag, backlog or crash history can touch the other's. Stopping analytics pushed its lag to 25</text>
+  <text class="a-l" x="20" y="844">while alerts held at zero, then analytics caught up cleanly on restart. Client IPs are salted-hashed per tenant before the address ever leaves the request handler.</text>
+</svg>
