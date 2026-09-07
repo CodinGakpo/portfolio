@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500" role="img" aria-label="The KeyHole exit gate: a sandbox's raw output passes through four checks in a fixed order — schema validation, exit-bandwidth accounting, a secondary DLP backstop, and the cumulative per-principal budget ledger — before a value is released; failing any check drops onto a shared withheld path where nothing is released, and both outcomes emit a KMS-signed attestation.">
+
+  <style><![CDATA[
+    /* Fonts carry real fallbacks: a standalone SVG referenced as an image
+       cannot fetch a webfont, so it renders in the fallback stack. */
+    svg {
+      color: #E4E8E1;
+      --surface: #0D1524;
+      --ink: #E4E8E1;
+      --ink-soft: #98A194;
+      --accent: #34D399;
+      --ai: #E0906A;
+      --gap: #CFAC55;
+      font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    }
+    .node     { fill: var(--surface); stroke: currentColor; stroke-width: 1.2; }
+    .zone     { fill: none; stroke: currentColor; stroke-width: 1; stroke-dasharray: 5 4; opacity: .55; }
+    .n-t      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 13px; font-weight: 600; fill: var(--ink); }
+    .n-s      { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; font-size: 10.5px; fill: var(--ink-soft); }
+    .z-t      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 10.5px; font-weight: 600; letter-spacing: .1em; fill: var(--ink-soft); }
+    .a-l      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 11px; fill: var(--ink-soft); }
+    .edge     { fill: none; stroke: currentColor; stroke-width: 1.3; opacity: .75; }
+    .edge-gap { fill: none; stroke: var(--gap); stroke-width: 1.3; stroke-dasharray: 6 4; }
+    .edge-acc { fill: none; stroke: var(--accent); stroke-width: 1.6; }
+    .node-ai  { fill: var(--surface); stroke: var(--ai); stroke-width: 1.6; }
+    .node-gap { fill: none; stroke: var(--gap); stroke-width: 1.6; stroke-dasharray: 6 4; }
+    .node-acc { fill: var(--surface); stroke: var(--accent); stroke-width: 1.6; }
+    .ai-t     { fill: var(--ai); }
+    .gap-t    { fill: var(--gap); }
+    .acc-t    { fill: var(--accent); }
+    .rail     { fill: var(--accent); }
+  ]]></style>
+
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+    </marker>
+    <marker id="ag-gap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--gap)"></path>
+    </marker>
+    <marker id="ag-acc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"></path>
+    </marker>
+  </defs>
+
+  <text class="z-t" x="20" y="32">THE EXIT GATE · THE ORDER IS THE THESIS</text>
+
+  <rect class="node-ai" x="20" y="52" width="140" height="66"></rect>
+  <text class="n-t ai-t" x="34" y="78">raw output</text>
+  <text class="n-s" x="34" y="96">JSON written to</text>
+  <text class="n-s" x="34" y="110">MARK1_OUTPUT</text>
+
+  <rect class="node" x="190" y="52" width="165" height="66"></rect>
+  <text class="n-t" x="204" y="78">1 · schema</text>
+  <text class="n-s" x="204" y="96">enum, int, string,</text>
+  <text class="n-s" x="204" y="110">array, object</text>
+
+  <rect class="node" x="385" y="52" width="165" height="66"></rect>
+  <text class="n-t" x="399" y="78">2 · bandwidth</text>
+  <text class="n-s" x="399" y="96">bits, conservative</text>
+  <text class="n-s" x="399" y="110">upper bound</text>
+
+  <rect class="node" x="580" y="52" width="165" height="66"></rect>
+  <text class="n-t" x="594" y="78">3 · DLP backstop</text>
+  <text class="n-s" x="594" y="96">secrets + PII scan</text>
+  <text class="n-s" x="594" y="110">secondary backstop</text>
+
+  <rect class="node" x="775" y="52" width="165" height="66"></rect>
+  <text class="n-t" x="789" y="78">4 · budget</text>
+  <text class="n-s" x="789" y="96">cumulative exit bits</text>
+  <text class="n-s" x="789" y="110">per principal</text>
+
+  <rect class="node-acc" x="970" y="52" width="210" height="66"></rect>
+  <text class="n-t acc-t" x="984" y="78">released</text>
+  <text class="n-s" x="984" y="96">a value no wider than</text>
+  <text class="n-s" x="984" y="110">the declared schema</text>
+
+  <path class="edge" marker-end="url(#ag)" d="M 160 85 L 190 85"></path>
+  <path class="edge" marker-end="url(#ag)" d="M 355 85 L 385 85"></path>
+  <path class="edge" marker-end="url(#ag)" d="M 550 85 L 580 85"></path>
+  <path class="edge" marker-end="url(#ag)" d="M 745 85 L 775 85"></path>
+  <path class="edge-acc" marker-end="url(#ag-acc)" d="M 940 85 L 970 85"></path>
+
+  <!-- shared withheld bus -->
+  <path class="edge-gap" d="M 272 118 L 272 200"></path>
+  <path class="edge-gap" d="M 662 118 L 662 200"></path>
+  <path class="edge-gap" d="M 857 118 L 857 200"></path>
+  <path class="edge-gap" d="M 272 200 L 857 200"></path>
+  <path class="edge-gap" marker-end="url(#ag-gap)" d="M 565 200 L 565 250"></path>
+
+  <text class="a-l gap-t" x="286" y="164">does not conform</text>
+  <text class="a-l gap-t" x="676" y="164">flagged</text>
+  <text class="a-l gap-t" x="871" y="164">cap reached</text>
+  <text class="a-l" x="467" y="150" text-anchor="middle">always computes,</text>
+  <text class="a-l" x="467" y="166" text-anchor="middle">never rejects</text>
+
+  <rect class="node-gap" x="390" y="250" width="350" height="66"></rect>
+  <text class="n-t gap-t" x="406" y="276">withheld</text>
+  <text class="n-s gap-t" x="406" y="294">nothing is released, and the run</text>
+  <text class="n-s gap-t" x="406" y="308">spends no budget</text>
+
+  <rect class="node" x="390" y="380" width="420" height="80"></rect>
+  <rect class="rail" x="390" y="380" width="3" height="80"></rect>
+  <text class="n-t acc-t" x="410" y="406">signed attestation</text>
+  <text class="n-s" x="410" y="424">emitted either way · KMS ECDSA P-256 in the cloud</text>
+  <text class="n-s" x="410" y="440">binds code, data and schema hashes, the exit bits,</text>
+  <text class="n-s" x="410" y="454">and the exact bytes released</text>
+
+  <path class="edge-gap" marker-end="url(#ag-gap)" d="M 565 316 L 565 380"></path>
+  <path class="edge-acc" marker-end="url(#ag-acc)" d="M 1075 118 L 1075 420 L 810 420"></path>
+
+  <text class="a-l" x="20" y="486">The bandwidth bound is the guarantee. The DLP scan is a backstop, and it is placed after validation deliberately — a content filter that ran first would be the thing you had to trust.</text>
+</svg>
