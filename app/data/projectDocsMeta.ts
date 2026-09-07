@@ -106,12 +106,15 @@ export const projectDocsMeta: Record<string, ProjectDocMeta> = {
   shieldstream: {
     id: 'shieldstream',
     title: 'ShieldStream',
-    tagline: 'Distributed API Security Gateway with Real-Time Threat Detection',
+    tagline: 'A Distributed API Security Gateway, Verified by Breaking It',
     description:
-      'A reverse proxy with atomic Redis-backed sliding-window rate limiting, two-tier real-time threat detection, and a live WebSocket operator dashboard — built to protect an upstream API from abuse without adding meaningful latency.',
+      'A multi-tenant reverse proxy with an atomic Redis-backed sliding-window limiter, two tiers of real-time threat detection, and a live operator dashboard — where almost every real defect was found by killing dependencies mid-traffic rather than by reading the code.',
     difficulty: 8,
     learning: 8,
     githubUrl: 'https://github.com/CodinGakpo/SheildStream',
+    notice: {
+      text: 'All twelve planned phases are implemented and verified running locally and under Docker Compose — load-tested at 1,000 concurrent users and chaos-tested against a real Redis outage. The production deployment is prepared, not provisioned: no VM, Neon branch or Vercel project has been created.',
+    },
     externalLinks: [
       { label: 'DECISIONS.md (engineering log)', url: 'https://github.com/CodinGakpo/SheildStream/blob/HEAD/DECISIONS.md' },
       { label: 'Load test report', url: 'https://github.com/CodinGakpo/SheildStream/blob/HEAD/loadtest-results/report.html' },
