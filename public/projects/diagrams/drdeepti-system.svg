@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="740" viewBox="0 0 1200 740" role="img" aria-label="DrDeepti system map: a patient browser and a doctor portal both call a Django REST API deployed on Render, while WhatsApp messages reach a FastAPI Lambda behind an API Gateway HTTP API which sends template alerts to clinic staff. Both services write to one Neon Postgres instance, holding the Django application tables and the chatbot's own session and lead tables as separate table groups rather than separate databases.">
+
+  <style><![CDATA[
+    /* Fonts carry real fallbacks: a standalone SVG referenced as an image
+       cannot fetch a webfont, so it renders in the fallback stack. */
+    svg {
+      color: #E4E8E1;
+      --surface: #0D1524;
+      --ink: #E4E8E1;
+      --ink-soft: #98A194;
+      --accent: #34D399;
+      --ai: #E0906A;
+      --gap: #CFAC55;
+      font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    }
+    .node     { fill: var(--surface); stroke: currentColor; stroke-width: 1.2; }
+    .zone     { fill: none; stroke: currentColor; stroke-width: 1; stroke-dasharray: 5 4; opacity: .55; }
+    .n-t      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 13px; font-weight: 600; fill: var(--ink); }
+    .n-s      { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; font-size: 10.5px; fill: var(--ink-soft); }
+    .z-t      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 10.5px; font-weight: 600; letter-spacing: .1em; fill: var(--ink-soft); }
+    .a-l      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 11px; fill: var(--ink-soft); }
+    .edge     { fill: none; stroke: currentColor; stroke-width: 1.3; opacity: .75; }
+    .node-ai  { fill: var(--surface); stroke: var(--ai); stroke-width: 1.6; }
+    .node-acc { fill: var(--surface); stroke: var(--accent); stroke-width: 1.6; }
+    .ai-t     { fill: var(--ai); }
+    .acc-t    { fill: var(--accent); }
+    .rail     { fill: var(--accent); }
+  ]]></style>
+
+  <defs>
+    <marker id="da" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+    </marker>
+  </defs>
+
+  <!-- ── Surfaces ────────────────────────────────────────────────────── -->
+  <text class="z-t" x="20" y="32">SURFACES</text>
+
+  <rect class="node" x="20" y="46" width="250" height="66"></rect>
+  <text class="n-t" x="36" y="72">patient browser</text>
+  <text class="n-s" x="36" y="92">React 19 · Vite · Vercel</text>
+
+  <rect class="node" x="310" y="46" width="250" height="66"></rect>
+  <text class="n-t" x="326" y="72">doctor portal</text>
+  <text class="n-s" x="326" y="92">Firebase phone sign-in</text>
+
+  <rect class="node-ai" x="600" y="46" width="250" height="66"></rect>
+  <text class="n-t ai-t" x="616" y="72">WhatsApp</text>
+  <text class="n-s" x="616" y="92">Meta Cloud API</text>
+
+  <path class="edge" d="M 145 112 L 145 160 L 220 160"></path>
+  <path class="edge" marker-end="url(#da)" d="M 435 112 L 435 160 L 220 160 L 220 190"></path>
+  <path class="edge" marker-end="url(#da)" d="M 725 112 L 725 160 L 670 160 L 670 190"></path>
+
+  <!-- ── Services ────────────────────────────────────────────────────── -->
+  <text class="z-t" x="20" y="180">SERVICES</text>
+
+  <rect class="node" x="20" y="190" width="400" height="100"></rect>
+  <text class="n-t" x="36" y="216">Django REST API</text>
+  <text class="n-s" x="36" y="236">Django 6 + DRF · Render, psycopg 3</text>
+  <text class="n-s" x="36" y="254">apps: accounts · clinic · appointments</text>
+  <text class="n-s" x="36" y="272">Firebase ID token verified server-side</text>
+
+  <rect class="node-ai" x="470" y="190" width="400" height="100"></rect>
+  <text class="n-t ai-t" x="486" y="216">FastAPI on Lambda</text>
+  <text class="n-s" x="486" y="236">API Gateway HTTP API · Mangum shim</text>
+  <text class="n-s" x="486" y="254">HMAC-SHA256 on every webhook POST</text>
+  <text class="n-s" x="486" y="272">nodes.json drives the whole conversation</text>
+
+  <rect class="node" x="920" y="190" width="260" height="100"></rect>
+  <text class="n-t" x="936" y="216">clinic staff</text>
+  <text class="n-s" x="936" y="236">approved template message,</text>
+  <text class="n-s" x="936" y="254">not free text — the 24-hour</text>
+  <text class="n-s" x="936" y="272">window blocks the latter</text>
+
+  <path class="edge" marker-end="url(#da)" d="M 870 240 L 920 240"></path>
+
+  <!-- ── One database ────────────────────────────────────────────────── -->
+  <rect class="zone" x="20" y="380" width="1160" height="210"></rect>
+  <text class="z-t" x="40" y="408">ONE NEON POSTGRES · TWO TABLE GROUPS, NOT TWO DATABASES</text>
+
+  <rect class="node" x="60" y="430" width="520" height="130"></rect>
+  <rect class="rail" x="60" y="430" width="3" height="130"></rect>
+  <text class="n-t acc-t" x="80" y="456">Django tables</text>
+  <text class="n-s" x="80" y="478">accounts_user  ·  clinic_doctorprofile</text>
+  <text class="n-s" x="80" y="496">clinic_availabilityslot  →  clinic_timeslot</text>
+  <text class="n-s" x="80" y="514">appointments_appointment</text>
+  <text class="n-s" x="80" y="532">appointments_otpverification</text>
+  <text class="n-s" x="80" y="550">one AvailabilitySlot generates 15-minute TimeSlots</text>
+
+  <rect class="node-ai" x="620" y="430" width="520" height="130"></rect>
+  <text class="n-t ai-t" x="640" y="456">chatbot tables</text>
+  <text class="n-s" x="640" y="478">whatsapp_sessions</text>
+  <text class="n-s" x="640" y="496">phone number PK · node_stack and context as JSONB</text>
+  <text class="n-s" x="640" y="522">whatsapp_leads</text>
+  <text class="n-s" x="640" y="540">uuid PK · name, age, concern, location, preferred time</text>
+
+  <path class="edge" marker-end="url(#da)" d="M 220 290 L 220 430"></path>
+  <path class="edge" marker-end="url(#da)" d="M 670 290 L 670 430"></path>
+
+  <text class="a-l" x="236" y="356">Django ORM</text>
+  <text class="a-l" x="686" y="356">async SQLAlchemy + asyncpg</text>
+
+  <!-- ── Notes ───────────────────────────────────────────────────────── -->
+  <text class="a-l" x="20" y="628">The two services share an instance, not a schema. Neither reads the other's tables and no service-to-service call exists between them — the bot captures leads,</text>
+  <text class="a-l" x="20" y="646">the web platform books real slots, and a lead only becomes an appointment when a human acts on it. Sharing one instance keeps a free tier free.</text>
+  <text class="a-l" x="20" y="676">The bot's connection pool is deliberately tiny — pool_size 2, max_overflow 3 — because Lambda opens many concurrent execution environments and Neon's</text>
+  <text class="a-l" x="20" y="694">free tier caps connections. asyncpg also rejects sslmode in the URL the way psycopg2 accepts it, so the query string is stripped and ssl is passed via connect_args.</text>
+</svg>
