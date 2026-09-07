@@ -136,12 +136,15 @@ export const projectDocsMeta: Record<string, ProjectDocMeta> = {
   documiner: {
     id: 'documiner',
     title: 'DocuMiner',
-    tagline: 'AI Enterprise Document Security Analyzer',
+    tagline: 'Redact First, Then Analyse — Document Security Analysis That Never Ships Your PII',
     description:
-      'Agentic zero-shot AI pipeline that analyzes enterprise documents for security compliance violations.',
+      'A Django pipeline that strips PII from PDFs, decks, spreadsheets and scans before a single token reaches a model — then finds firewall rules, IAM statements and verification anomalies in what is left.',
     difficulty: 7,
     learning: 7,
     githubUrl: 'https://github.com/CodinGakpo/DocuMiner',
+    notice: {
+      text: 'A B.Tech capstone, filed as a patent disclosure through VIT’s IPR process. It is coursework rather than a deployed product, and the Known Defects document lists what is currently broken rather than leaving it to be discovered.',
+    },
     versions: [
       {
         id: 'v2',

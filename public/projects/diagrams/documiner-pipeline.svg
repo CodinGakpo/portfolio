@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" role="img" aria-label="DocuMiner two-stage pipeline: stage one is fully deterministic — a ZIP archive is dispatched to per-format handlers, images pass through PIL preprocessing and Tesseract OCR, and every extracted string is redacted with regex patterns and spaCy named entity recognition, with person names pseudonymised to stable identifiers. The result is redacted structured JSON that preserves document hierarchy. Only that redacted JSON crosses into stage two, where a spreadsheet path detects anomalies with vectorised Pandas and uses the language model purely to narrate findings, and a document path classifies each page and routes it to one of three schema-bound extraction chains.">
+
+  <style><![CDATA[
+    /* Fonts carry real fallbacks: a standalone SVG referenced as an image
+       cannot fetch a webfont, so it renders in the fallback stack. */
+    svg {
+      color: #E4E8E1;
+      --surface: #0D1524;
+      --ink: #E4E8E1;
+      --ink-soft: #98A194;
+      --accent: #34D399;
+      --ai: #E0906A;
+      --gap: #CFAC55;
+      font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    }
+    .node     { fill: var(--surface); stroke: currentColor; stroke-width: 1.2; }
+    .zone     { fill: none; stroke: currentColor; stroke-width: 1; stroke-dasharray: 5 4; opacity: .55; }
+    .n-t      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 13px; font-weight: 600; fill: var(--ink); }
+    .n-s      { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; font-size: 10.5px; fill: var(--ink-soft); }
+    .z-t      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 10.5px; font-weight: 600; letter-spacing: .1em; fill: var(--ink-soft); }
+    .a-l      { font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 11px; fill: var(--ink-soft); }
+    .edge     { fill: none; stroke: currentColor; stroke-width: 1.3; opacity: .75; }
+    .edge-acc { fill: none; stroke: var(--accent); stroke-width: 1.6; }
+    .node-ai  { fill: var(--surface); stroke: var(--ai); stroke-width: 1.6; }
+    .node-acc { fill: var(--surface); stroke: var(--accent); stroke-width: 1.6; }
+    .boundary { fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 8 5; }
+    .ai-t     { fill: var(--ai); }
+    .acc-t    { fill: var(--accent); }
+    .rail     { fill: var(--accent); }
+  ]]></style>
+
+  <defs>
+    <marker id="ma" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+    </marker>
+    <marker id="ma-acc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"></path>
+    </marker>
+  </defs>
+
+  <!-- ── Stage 1 ─────────────────────────────────────────────────────── -->
+  <text class="z-t" x="20" y="32">STAGE 1 · FULLY DETERMINISTIC · NO MODEL IS INVOLVED</text>
+
+  <rect class="node" x="20" y="52" width="170" height="190"></rect>
+  <text class="n-t" x="36" y="78">ZIP upload</text>
+  <text class="n-s" x="36" y="98">one archive,</text>
+  <text class="n-s" x="36" y="114">many documents</text>
+  <text class="n-s" x="36" y="140">stored per user</text>
+  <text class="n-s" x="36" y="156">under a uuid</text>
+
+  <rect class="node" x="240" y="52" width="300" height="190"></rect>
+  <text class="n-t" x="256" y="78">per-format handlers</text>
+  <text class="n-s" x="256" y="100">pdf        PyMuPDF · text, tables,</text>
+  <text class="n-s" x="256" y="116">           embedded images</text>
+  <text class="n-s" x="256" y="138">pptx       python-pptx · slides</text>
+  <text class="n-s" x="256" y="160">xlsx       openpyxl · row-wise with</text>
+  <text class="n-s" x="256" y="176">           header detection</text>
+  <text class="n-s" x="256" y="198">images     png jpg bmp tiff gif</text>
+  <text class="n-s" x="256" y="224">unknown types are skipped, not guessed</text>
+
+  <rect class="node" x="590" y="52" width="280" height="190"></rect>
+  <text class="n-t" x="606" y="78">OCR</text>
+  <text class="n-s" x="606" y="100">Tesseract, with PIL preprocessing:</text>
+  <text class="n-s" x="606" y="120">grayscale · contrast x2</text>
+  <text class="n-s" x="606" y="136">sharpness x2 · median filter</text>
+  <text class="n-s" x="606" y="152">upscale anything under 300px</text>
+  <text class="n-s" x="606" y="178">an OpenCV edge-density check</text>
+  <text class="n-s" x="606" y="194">skips diagrams, which OCR</text>
+  <text class="n-s" x="606" y="210">turns into noise</text>
+
+  <rect class="node-acc" x="920" y="52" width="260" height="190"></rect>
+  <text class="n-t acc-t" x="936" y="78">PII redaction</text>
+  <text class="n-s" x="936" y="100">regex   email · phone · SSN</text>
+  <text class="n-s" x="936" y="126">spaCy   PERSON → emp1, emp2</text>
+  <text class="n-s" x="936" y="142">        stable per document</text>
+  <text class="n-s" x="936" y="164">        ORG, GPE → [REDACTED_*]</text>
+  <text class="n-s" x="936" y="190">plus configured company</text>
+  <text class="n-s" x="936" y="206">name patterns</text>
+
+  <path class="edge" marker-end="url(#ma)" d="M 190 147 L 240 147"></path>
+  <path class="edge" marker-end="url(#ma)" d="M 540 147 L 590 147"></path>
+  <path class="edge-acc" marker-end="url(#ma-acc)" d="M 870 147 L 920 147"></path>
+
+  <rect class="node-acc" x="20" y="290" width="1160" height="70"></rect>
+  <rect class="rail" x="20" y="290" width="3" height="70"></rect>
+  <text class="n-t acc-t" x="40" y="316">redacted structured JSON</text>
+  <text class="n-s" x="40" y="338">document hierarchy preserved — pages, slides, rows — with the pseudonym mapping carried alongside so findings stay traceable</text>
+
+  <path class="edge-acc" marker-end="url(#ma-acc)" d="M 1050 242 L 1050 290"></path>
+
+  <!-- ── The boundary ────────────────────────────────────────────────── -->
+  <path class="boundary" d="M 20 400 L 1180 400"></path>
+  <text class="z-t acc-t" x="340" y="392">THE TRUST BOUNDARY · EVERYTHING BELOW RECEIVES ONLY REDACTED TEXT</text>
+
+  <!-- ── Stage 2 ─────────────────────────────────────────────────────── -->
+  <text class="z-t" x="20" y="432">STAGE 2 · ANALYSIS · GPT-4o AT TEMPERATURE 0, VIA LANGCHAIN</text>
+
+  <rect class="node" x="20" y="452" width="560" height="190"></rect>
+  <text class="n-t" x="40" y="478">spreadsheets → Pandas</text>
+  <text class="n-s" x="40" y="500">detection is vectorised, not prompted:</text>
+  <text class="n-s" x="40" y="524">·  verification time-gap outliers, mean + 2 sigma</text>
+  <text class="n-s" x="40" y="546">·  duplicate employee IDs — the ghost-account signal</text>
+  <text class="n-s" x="40" y="568">·  rubber-stamping supervisors: over 80% of approvals</text>
+  <text class="n-s" x="40" y="584">   closed within a day, across at least three approvals</text>
+  <text class="n-s acc-t" x="40" y="614">the model never decides what is an anomaly —</text>
+  <text class="n-s acc-t" x="40" y="630">it only writes each finding up</text>
+
+  <rect class="node-ai" x="620" y="452" width="560" height="190"></rect>
+  <text class="n-t ai-t" x="640" y="478">pages and slides → classification router</text>
+  <text class="n-s" x="640" y="500">one zero-shot classification call per page or slide,</text>
+  <text class="n-s" x="640" y="516">then a route to a schema-bound extraction chain:</text>
+  <text class="n-s" x="640" y="540">Firewall_Rule     → FirewallRule</text>
+  <text class="n-s" x="640" y="562">IAM_Policy        → IAMPolicy</text>
+  <text class="n-s" x="640" y="584">Policy_Document   → PolicyDocument</text>
+  <text class="n-s ai-t" x="640" y="614">every chain ends in a Pydantic parser, so a reply</text>
+  <text class="n-s ai-t" x="640" y="630">that is not valid structured output is caught</text>
+
+  <path class="edge" marker-end="url(#ma)" d="M 300 360 L 300 452"></path>
+  <path class="edge" marker-end="url(#ma)" d="M 900 360 L 900 452"></path>
+
+  <rect class="node" x="20" y="690" width="1160" height="70"></rect>
+  <text class="n-t" x="40" y="716">security insights</text>
+  <text class="n-s" x="40" y="738">written as JSONB onto both DocumentUpload and ProcessingResult, then rendered in the results view and downloadable as JSON</text>
+
+  <path class="edge" marker-end="url(#ma)" d="M 300 642 L 300 690"></path>
+  <path class="edge" marker-end="url(#ma)" d="M 900 642 L 900 690"></path>
+
+  <text class="a-l acc-t" x="20" y="792">The ordering is the whole design. Redaction is complete before a single token reaches OpenAI, so the model sees emp1 and [REDACTED_ORG] rather than real</text>
+  <text class="a-l acc-t" x="20" y="810">names — a document-security tool that shipped its customers' PII to a third-party API would be arguing against itself.</text>
+</svg>
